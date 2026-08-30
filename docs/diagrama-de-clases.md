@@ -15,8 +15,9 @@ existen en el código.
 | ✏️ **Abrir en PlantUML (editable)** | https://www.plantuml.com/plantuml/uml/5Sp13S8m3030FrF008sHUBMlJi0EnhQQYCIfR8TAdHvutUzM3xGOhLvkHQaEbckEs7q1C3pILYAFrt0nwXgYaQWtUA9zKCxxF3-0nVCReM5Hu4uEN70pR3YnJ5JHnTF-_rTH_la5 |
 | 📄 **Código fuente** | [`docs/diagrama-de-clases.puml`](./diagrama-de-clases.puml) |
 
-Cambia `/uml/` por `/png/` o `/svg/` para descargar la imagen. Los enlaces leen el archivo
-directamente de este repositorio, así que **siempre muestran la última versión**.
+Las imágenes del repositorio son la versión canónica: son las que van al documento. El enlace de
+PlantUML abre el **modelo** en la herramienta, donde puede consultarse y editarse; su render usa
+Graphviz en vez de Smetana, así que ordena las mismas clases de otra manera.
 
 ![Diagrama de clases de Deshka](../assets/diagrama-de-clases.png)
 
@@ -53,7 +54,7 @@ puertos entre módulos de la arquitectura hexagonal: **51 clases, 19 enumeracion
 | | |
 |---|---|
 | 🖼️ **Imagen** | [`assets/diagrama-de-clases-detallado.png`](../assets/diagrama-de-clases-detallado.png) · [SVG](../assets/diagrama-de-clases-detallado.svg) |
-| ✏️ **Abrir en PlantUML** | https://www.plantuml.com/plantuml/uml/5SrB3i8m34NHEQk01JH6ObH6NG5xUDXM4pMVAdQenEefetjcTp57zr7ovPOgvo5wZUwxFOawZh0cZ-CzJ3ktwbezS2lqGlz0l_TvVf2enGrKa2f9OoD9M3iA9j69Cqpjb2DdI0lx_xHebRC_ |
+| ✏️ **Abrir el modelo en PlantUML** | https://www.plantuml.com/plantuml/uml/5SvB4e8m44NHkQlG1K12WbHmn0hSmoFTVCf0gAIZLQvU7Dqpl4CM92bRkDpMtOT2V5r4ZlnGAk5JpwiiPIoPau-xy2wrZvjw8ht1NzttLX7dvGNbsLXdR7TloS4PQD8TzHqid6wfyLF3PhJjf2Zwh6Z5dB2X8gvyGEPyIX02ADR7_sRWdSx-00 |
 | 📄 **Código fuente** | [`docs/diagrama-de-clases-detallado.puml`](./diagrama-de-clases-detallado.puml) |
 
 ## Regenerar
