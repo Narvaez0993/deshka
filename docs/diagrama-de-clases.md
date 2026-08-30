@@ -12,7 +12,7 @@ existen en el código.
 |---|---|
 | 🖼️ **Imagen (PNG)** | [`assets/diagrama-de-clases.png`](../assets/diagrama-de-clases.png) |
 | 🖼️ **Imagen (SVG, vectorial)** | [`assets/diagrama-de-clases.svg`](../assets/diagrama-de-clases.svg) |
-| ✏️ **Abrir en PlantUML (editable)** | https://www.plantuml.com/plantuml/uml/5Sp13S8m3030FrF008sHUBMlJi0EnhQQYCIfR8TAdHvutUzM3xGOhLvkHQaEbckEs7q1C3pILYAFrt0nwXgYaQWtUA9zKCxxF3-0nVCReM5Hu4uEN70pR3YnJ5JHnTF-_rTH_la5 |
+| ✏️ **Abrir el modelo en PlantUML** | https://www.plantuml.com/plantuml/uml/5Sv14e8m3030kw_G1q1AYqpnn0lyGqY2C49XcbHdVBrwskiEQfYjRElfiYHQ2yjvDZlq1f3nNJyMcyjOL3BjoIHPJVi6Tymlb8_h-m0iEZyHI7o8FdJNbYD6ZuvTnts70QDhkQ6f4J-6TWBUIO4NV6JSi6AfQ4KLhO__OP34Fxy |
 | 📄 **Código fuente** | [`docs/diagrama-de-clases.puml`](./diagrama-de-clases.puml) |
 
 Las imágenes del repositorio son la versión canónica: son las que van al documento. El enlace de
