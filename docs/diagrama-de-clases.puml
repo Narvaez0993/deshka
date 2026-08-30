@@ -1,0 +1,798 @@
+@startuml deshka-diagrama-de-clases
+' ---------------------------------------------------------------------------
+'  Deshka · Diagrama de clases de diseño
+'  Entregable #1 · Diseño de Sistemas de Información · ITM · 2026
+'
+'  Modelo de dominio completo del sistema, por módulos. Los nombres de clases y
+'  atributos conservan el idioma del código (inglés); las relaciones y las notas
+'  van en español.
+' ---------------------------------------------------------------------------
+!theme plain
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+left to right direction
+skinparam nodesep 22
+skinparam ranksep 42
+skinparam package {
+  BorderColor #8A94A6
+  BackgroundColor #FBFCFD
+  FontStyle bold
+  FontColor #1F3864
+}
+skinparam class {
+  BorderColor #1F3864
+  BackgroundColor #FFFFFF
+  HeaderBackgroundColor #EEF2F9
+  ArrowColor #45506B
+  FontColor #14203A
+  AttributeFontColor #33415C
+}
+skinparam enum {
+  BorderColor #0E8A16
+  BackgroundColor #F4FBF5
+  HeaderBackgroundColor #E7F5EA
+}
+skinparam note {
+  BackgroundColor #FFF8E1
+  BorderColor #D4A017
+}
+hide circle
+
+' ===========================================================================
+package "shared · núcleo compartido" as P_SHARED {
+  class Money <<value object>> {
+    +amount : Integer
+    +currency : String
+    --
+    Entero en la **unidad menor** de la
+    moneda (ISO 4217). Nunca decimales.
+    +format(locale) : String
+  }
+  class MonthPeriod <<value object>> {
+    +key : String
+    +firstDay : Date
+    +lastDay : Date
+    +totalDays : Integer
+    +daysElapsed : Integer
+    +daysLeft : Integer
+  }
+  abstract class DomainError {
+    +code : String
+    +httpStatus : Integer
+  }
+  class NotFoundError
+  class ConflictError
+  class ValidationError
+  class ForbiddenError
+  class UnauthorizedError
+  class QuotaExceededError
+
+  DomainError <|-- NotFoundError
+  DomainError <|-- ConflictError
+  DomainError <|-- ValidationError
+  DomainError <|-- ForbiddenError
+  DomainError <|-- UnauthorizedError
+  DomainError <|-- QuotaExceededError
+}
+
+' ===========================================================================
+package "auth · identidad y preferencias" as P_AUTH {
+  class User {
+    +id : UUID
+    +email : Email
+    +displayName : String
+    -hashedPassword : HashedPassword
+    +tier : Tier
+    +emailVerified : Boolean
+    +createdAt : DateTime
+    --
+    +isPlus() : Boolean
+    +changePreferences(p) : User
+  }
+  class Email <<value object>> {
+    +value : String
+    --
+    +normalized() : String
+  }
+  class HashedPassword <<value object>> {
+    +value : String
+    --
+    Derivada con sal. Nunca texto plano.
+    +verify(raw) : Boolean
+  }
+  class UserPreferences <<value object>> {
+    +language : Language
+    +currency : String
+    +theme : Theme
+    +objective : Objective
+  }
+  class RefreshToken {
+    +id : UUID
+    +tokenHash : String
+    +familyId : UUID
+    +expiresAt : DateTime
+    +revokedAt : DateTime
+    --
+    +rotate() : RefreshToken
+  }
+  class EmailVerificationCode {
+    +code : String
+    +expiresAt : DateTime
+    +attempts : Integer
+    +resendAvailableAt : DateTime
+  }
+  enum Tier {
+    free
+    plus
+  }
+  enum Language {
+    es
+    en
+  }
+  enum Theme {
+    light
+    dark
+    system
+  }
+  enum Objective {
+    gastos
+    ahorrar
+    deudas
+  }
+
+  User *-- "1" Email
+  User *-- "1" HashedPassword
+  User *-- "1" UserPreferences
+  User "1" o-- "0..*" RefreshToken
+  User "1" o-- "0..1" EmailVerificationCode
+  User ..> Tier
+  UserPreferences ..> Language
+  UserPreferences ..> Theme
+  UserPreferences ..> Objective
+}
+
+' ===========================================================================
+package "accounts · fuentes de dinero" as P_ACC {
+  class Account {
+    +id : String
+    +kind : AccountKind
+    +name : String
+    +sub : String
+    +icon : String
+    +color : String
+    +currency : String
+    +balance : Integer
+    +initialBalance : Integer
+    +createdAt : DateTime
+    --
+    balance == initialBalance + Σ movimientos
+    +applyDelta(d : Integer) : Account
+  }
+  class CreditCard {
+    +id : String
+    +name : String
+    +icon : String
+    +color : String
+    +currency : String
+    +debt : Integer
+    +initialDebt : Integer
+    +limit : Integer
+    +cutoffDay : Integer
+    +dueDay : Integer
+    +createdAt : DateTime
+    --
+    debt == initialDebt + Σ cargos − Σ pagos
+    +applyDelta(d : Integer) : CreditCard
+    +available() : Integer
+    +isOverLimit() : Boolean
+  }
+  enum AccountKind {
+    debit
+    cash
+  }
+  Account ..> AccountKind
+}
+
+' ===========================================================================
+package "categories · clasificación" as P_CAT {
+  class Category {
+    +id : String
+    +name : String
+    +icon : String
+    +color : String
+    +flow : CategoryFlow
+    +isStandard : Boolean
+  }
+  enum CategoryFlow {
+    expense
+    income
+  }
+  Category ..> CategoryFlow
+  note bottom of Category
+    Catálogo estándar definido en código
+    (12 de gasto + ingreso). Las propias
+    son por usuario: Free 2 · Plus ∞.
+  end note
+}
+
+' ===========================================================================
+package "movements · el libro mayor" as P_MOV {
+  class Movement {
+    +id : String
+    +type : MovementType
+    +description : String
+    +amount : Integer
+    +currency : String
+    +categoryId : String
+    +occurredOn : Date
+    +capturedVia : CapturedVia
+    +createdAt : DateTime
+    +subscriptionId : String
+    --
+    amount siempre positivo: el signo
+    lo deriva `type`. `type` es inmutable.
+    +deltas() : Delta[0..2]
+    +withUpdates(...) : Movement
+    +reverse() : Delta[0..2]
+  }
+  class SourceRef <<value object>> {
+    +type : SourceType
+    +id : String
+  }
+  class Delta <<value object>> {
+    +target : SourceRef
+    +amount : Integer
+    --
+    cuenta: balance += delta
+    tarjeta: debt −= delta
+  }
+  enum MovementType {
+    expense
+    income
+    transfer
+  }
+  enum SourceType {
+    account
+    credit_card
+    goal
+    debt
+  }
+  enum CapturedVia {
+    manual
+    voice
+    photo
+    text
+    recurring
+  }
+
+  Movement *-- "1" SourceRef : source
+  Movement *-- "0..1" SourceRef : destination
+  Movement ..> Delta : produce
+  Movement ..> MovementType
+  Movement ..> CapturedVia
+  SourceRef ..> SourceType
+}
+
+' ===========================================================================
+package "budgets · topes de gasto" as P_BUD {
+  class Budget {
+    +id : String
+    +scope : Scope
+    +categoryId : String
+    +target : Integer
+    +since : String
+    +createdAt : DateTime
+    --
+    Vigente hasta que el usuario lo cambie.
+    +progress(spent, period) : CapProgress
+  }
+  class CapProgress <<derivado>> {
+    +target : Integer
+    +spent : Integer
+    +remaining : Integer
+    +used : Float
+    +perDay : Integer
+    +projected : Integer
+    +over : Integer
+  }
+  enum Scope {
+    global
+    category
+  }
+  Budget ..> Scope
+  Budget ..> CapProgress : calcula
+}
+
+' ===========================================================================
+package "subscriptions · cobros recurrentes" as P_SUB {
+  class Subscription {
+    +id : String
+    +name : String
+    +amount : Integer
+    +currency : String
+    +frequency : Frequency
+    +firstChargeOn : Date
+    +categoryId : String
+    +icon : String
+    +color : String
+    +active : Boolean
+    +createdAt : DateTime
+    --
+    No mueve plata: es un compromiso.
+    +nextChargeOn(from : Date) : Date
+    +pause() : Subscription
+  }
+  class SubscriptionCharge {
+    +id : String
+    +dueOn : Date
+    +amount : Integer
+    +currency : String
+    +status : ChargeStatus
+    +openedAt : DateTime
+    +settledAt : DateTime
+    +movementId : String
+    --
+    Monto congelado al abrir.
+    Único (user, subscription, dueOn).
+    +confirm() : SubscriptionCharge
+    +settleAuto() : SubscriptionCharge
+    +skip() : SubscriptionCharge
+  }
+  enum Frequency {
+    weekly
+    monthly
+    yearly
+  }
+  enum ChargeStatus {
+    pending
+    confirmed
+    auto
+    skipped
+  }
+
+  Subscription "1" *-- "0..*" SubscriptionCharge : abre
+  Subscription ..> Frequency
+  SubscriptionCharge ..> ChargeStatus
+}
+
+' ===========================================================================
+package "debts · libro de acuerdos" as P_DEBT {
+  class Debt {
+    +id : String
+    +direction : Direction
+    +amount : Integer
+    +currency : String
+    +dueOn : Date
+    +note : String
+    +writtenOffOn : Date
+    +createdAt : DateTime
+    --
+    Es el **acuerdo**, no la plata.
+    Lo abonado se lee de los movimientos.
+    +remaining(settled) : Integer
+    +status(today, settled) : DebtStatus
+    +writeOff(on : Date) : Debt
+  }
+  class Counterparty {
+    +id : String
+    +name : String
+    +color : String
+    +createdAt : DateTime
+    --
+    Único por (user, nombre normalizado).
+    +initial() : String
+  }
+  class SharedEvent {
+    +id : String
+    +name : String
+    +total : Integer
+    +occurredOn : Date
+    +createdAt : DateTime
+  }
+  enum Direction {
+    incoming
+    outgoing
+  }
+  enum DebtStatus {
+    pending
+    partial
+    paid
+    overdue
+    written_off
+  }
+
+  Debt "0..*" --> "1" Counterparty : con
+  SharedEvent "1" o-- "1..*" Debt : divide en
+  Debt ..> Direction
+  Debt ..> DebtStatus : deriva
+}
+
+' ===========================================================================
+package "goals · metas de ahorro" as P_GOAL {
+  class Goal {
+    +id : String
+    +name : String
+    +icon : String
+    +color : String
+    +target : Integer
+    +currency : String
+    +targetDate : Date
+    +archivedAt : DateTime
+    +createdAt : DateTime
+    --
+    Bolsillo sin saldo propio:
+    `saved` se deriva de sus movimientos.
+    +saved(movements) : Integer
+    +progress(today) : GoalProgress
+    +archive() : Goal
+  }
+  class GoalProgress <<derivado>> {
+    +saved : Integer
+    +pct : Float
+    +monthlyPace : Integer
+    +neededPerMonth : Integer
+    +projectedOn : String
+    +achieved : Boolean
+  }
+  Goal ..> GoalProgress : calcula
+}
+
+' ===========================================================================
+package "assistant · el agente" as P_AI {
+  class ChatMessage {
+    +id : String
+    +role : Role
+    +clientMessageId : String
+    +createdAt : DateTime
+  }
+  abstract class Block {
+    +type : String
+  }
+  class TextBlock {
+    +text : String
+  }
+  class StatBlock {
+    +label : String
+    +value : String
+    +amount : Integer
+    +pct : Float
+  }
+  class ChartBlock {
+    +kind : String
+    +title : String
+    +points : ChartPoint[]
+  }
+  class NavigateBlock {
+    +label : String
+    +route : String
+  }
+  class DraftRefBlock {
+    +draftId : String
+  }
+  class DebtDraftRefBlock {
+    +debtDraftId : String
+  }
+
+  class MovementDraft {
+    +id : String
+    +type : String
+    +description : String
+    +amount : Integer
+    +currency : String
+    +sourceType : String
+    +sourceId : String
+    +destinationType : String
+    +destinationId : String
+    +categoryId : String
+    +occurredOn : Date
+    +status : DraftStatus
+    +movementId : String
+    +capturedVia : CapturedVia
+    +createdAt : DateTime
+    --
+    Lo que el agente entendió, esperando
+    confirmación. Conserva su estado.
+    +confirm() : Movement
+    +discard() : MovementDraft
+  }
+  class DebtDraft {
+    +id : String
+    +kind : String
+    +direction : String
+    +counterpartyName : String
+    +amount : Integer
+    +dueOn : Date
+    +status : DraftStatus
+    +debtId : String
+    +createdAt : DateTime
+  }
+  class AgentOutput {
+    +id : String
+    +kind : OutputKind
+    +period : String
+    +payload : Snapshot
+    +createdAt : DateTime
+    +readAt : DateTime
+    +dismissedAt : DateTime
+    --
+    Snapshot congelado. Único (user, kind, period)
+    = idempotencia del job.
+    +dismiss() : AgentOutput
+  }
+  class Play {
+    +id : String
+    +action : String
+    +params : Map
+    +text : String
+    +status : PlayStatus
+    +resultId : String
+    +failureCode : String
+    +appliedAt : DateTime
+    --
+    +apply() : Play
+    +fail(code) : Play
+  }
+  class AIUsageCounters {
+    +period : String
+    +registrationsUsed : Integer
+    +messagesUsed : Integer
+    --
+    El periodo en la clave **es** el reset.
+    +consume(c : Consumption) : AIUsageCounters
+    +remaining(tier) : UsageView
+  }
+  class AIActionLog {
+    +action : String
+    +model : String
+    +inputTokens : Integer
+    +outputTokens : Integer
+    +cacheReadTokens : Integer
+    +cacheWriteTokens : Integer
+    +costUsd : Float
+    +failed : Boolean
+    +at : DateTime
+  }
+  class InsightDismissal {
+    +key : String
+    +dismissedAt : DateTime
+    --
+    TTL 120 días. Única huella de un
+    insight: la señal se recalcula al leer.
+  }
+  class Insight <<derivado>> {
+    +key : String
+    +severity : String
+    +text : String
+    +action : String
+    --
+    Nunca se persiste: se computa on-read
+    desde los mismos snapshots de las pantallas.
+  }
+  enum Role {
+    user
+    assistant
+  }
+  enum DraftStatus {
+    pending
+    confirmed
+    discarded
+  }
+  enum OutputKind {
+    monthly_summary
+    weekly_review
+  }
+  enum PlayStatus {
+    proposed
+    applying
+    applied
+    failed
+  }
+
+  ChatMessage "1" *-- "1..*" Block : blocks
+  Block <|-- TextBlock
+  Block <|-- StatBlock
+  Block <|-- ChartBlock
+  Block <|-- NavigateBlock
+  Block <|-- DraftRefBlock
+  Block <|-- DebtDraftRefBlock
+  DraftRefBlock ..> MovementDraft : referencia
+  DebtDraftRefBlock ..> DebtDraft : referencia
+  AgentOutput "1" *-- "0..*" Play
+  ChatMessage ..> Role
+  MovementDraft ..> DraftStatus
+  DebtDraft ..> DraftStatus
+  AgentOutput ..> OutputKind
+  Play ..> PlayStatus
+  Insight ..> InsightDismissal : se oculta con
+}
+
+' ===========================================================================
+package "overview · vistas de lectura (no persisten)" as P_OV {
+  class HomeOverview <<vista>> {
+    +netBalance : Integer
+    +monthExpense : Integer
+    +monthIncome : Integer
+    +savingRate : Float
+    +focus : Focus
+    +topCategories : CategorySpend[]
+    +lastMovements : Movement[]
+  }
+  class SpendingPace <<derivado>> {
+    +dailyAverage : Integer
+    +projected : Integer
+  }
+  class MovementsSummary <<vista>> {
+    +totalsByType : Map
+    +spendByCategory : Map
+    +topMerchants : Merchant[]
+  }
+  enum Focus {
+    start
+    pace
+    debt
+    saving
+    budget
+    invite
+  }
+  HomeOverview ..> Focus
+  HomeOverview ..> SpendingPace
+}
+
+' ===========================================================================
+package "billing · planes (Fase 5)" as P_BILL {
+  class Entitlement <<planeado>> {
+    +isPlus : Boolean
+    +productId : String
+    +renewsAt : DateTime
+    +store : String
+    --
+    Fuente: RevenueCat + User.tier
+  }
+  class PlanLimits <<value object>> {
+    +accounts : Integer
+    +creditCards : Integer
+    +customCategories : Integer
+    +categoryCaps : Integer
+    +activeGoals : Integer
+    +registrations : Integer
+    +messages : Integer
+    +messagesGrace : Integer
+  }
+  Entitlement ..> PlanLimits : resuelve
+}
+
+' ===========================================================================
+package "puertos entre módulos (Hexagonal)" as P_PORTS {
+  interface MovementRecorder <<interface>> {
+    +record(draft) : Movement
+  }
+  interface GoalContributor <<interface>> {
+    +contribute(goalId, amount, from) : Movement
+    +withdraw(goalId, amount, to) : Movement
+  }
+  interface DebtRecorder <<interface>> {
+    +lend(debtId, amount, from) : Movement
+    +settle(debtId, amount, to) : Movement
+  }
+  interface SettlementReader <<interface>> {
+    +settledFor(debtIds) : Map
+  }
+  interface BudgetsReader <<interface>> {
+    +snapshot(userId, period) : CapProgress[]
+  }
+  interface MovementsReader <<interface>> {
+    +summary(userId, range) : MovementsSummary
+    +goalFunds(userId) : Map
+  }
+  interface AgentModel <<interface>> {
+    +respond(context, tools) : Block[]
+    +parse(utterance) : MovementDraft
+  }
+  interface UnitOfWork <<interface>> {
+    +commit() : void
+    +rollback() : void
+  }
+  interface IdempotencyStore <<interface>> {
+    +reserve(key) : Boolean
+  }
+}
+
+' ===========================================================================
+' Relaciones entre módulos
+' ===========================================================================
+User "1" o-- "0..*" Account : posee
+User "1" o-- "0..*" CreditCard : posee
+User "1" o-- "0..*" Category : personaliza
+User "1" o-- "0..*" Movement : registra
+User "1" o-- "0..*" Budget : define
+User "1" o-- "0..*" Subscription : contrata
+User "1" o-- "0..*" Debt : acuerda
+User "1" o-- "0..*" Counterparty : conoce
+User "1" o-- "0..*" SharedEvent : comparte
+User "1" o-- "0..*" Goal : persigue
+User "1" o-- "0..*" ChatMessage : conversa
+User "1" o-- "0..*" AgentOutput : recibe
+User "1" o-- "1" AIUsageCounters : consume por periodo
+User "1" o-- "0..1" Entitlement : contrata
+
+Category "0..1" <-- "0..*" Movement : clasifica
+Budget "0..*" --> "0..1" Category : vigila
+Subscription "0..*" --> "0..1" Category : imputa a
+
+SubscriptionCharge "0..1" --> "0..1" Movement : liquida en
+Movement "0..*" --> "0..1" Subscription : recurrente de
+
+Account "1" <.. "0..*" Movement : source/destination
+CreditCard "1" <.. "0..*" Movement : source/destination
+Goal "1" <.. "0..*" Movement : aporte/retiro
+Debt "1" <.. "0..*" Movement : préstamo/abono
+
+MovementDraft ..> MovementRecorder : confirma por
+Play ..> GoalContributor : aplica por
+Play ..> BudgetsReader : aplica por
+DebtDraft ..> DebtRecorder : confirma por
+Debt ..> SettlementReader : lee abonos por
+Goal ..> MovementsReader : lee saved por
+HomeOverview ..> BudgetsReader
+HomeOverview ..> MovementsReader
+ChatMessage ..> AgentModel : se compone con
+AgentOutput ..> AIActionLog : registra costo en
+
+' ===========================================================================
+' Invariantes que definen el sistema
+' ===========================================================================
+note as N_CASHBASIS
+  **RN-01 · Cash-basis de tarjeta de crédito**
+  El consumo con tarjeta es `expense` con `source = credit_card`:
+  cuenta al presupuesto y **sube** la deuda.
+  El pago de la tarjeta es `transfer` cuenta → tarjeta:
+  **baja** la deuda y **no** vuelve a afectar el presupuesto.
+  Una compra a cuotas sube la deuda por su total el día de la compra;
+  cada cuota es una transferencia, nunca un gasto nuevo. (RN-02)
+end note
+N_CASHBASIS .. Movement
+
+note as N_ATOMIC
+  **RNF-09 · Atomicidad**
+  Un movimiento y los deltas de sus fuentes se escriben en una
+  sola transacción (`UnitOfWork`). Editar o eliminar revierte
+  todos sus efectos. `Idempotency-Key` se reserva dentro de la
+  misma transacción: nunca existe una clave sin su movimiento.
+end note
+N_ATOMIC .. UnitOfWork
+
+note as N_DERIVED
+  **Nada derivado se persiste**
+  `saved` de una meta, `remaining` y `status` de una deuda,
+  `spent`/`perDay`/`projected` de un tope y el saldo neto se
+  **calculan** al leer. Un derivado guardado es un campo que
+  se desactualiza: es el bug que mató al `balance` del prototipo.
+end note
+N_DERIVED .. GoalProgress
+
+note as N_DEBT
+  **RN-10 · La deuda no mueve plata por sí sola**
+  Registrar una deuda no crea movimientos ni cambia saldos.
+  Prestar sí: es una transferencia cuenta → deuda, y el mes
+  no se encarece porque el efectivo se volvió un derecho de cobro.
+  El gasto aparece solo al declararla incobrable (`writtenOffOn`).
+end note
+N_DEBT .. Debt
+
+note as N_AGENT
+  **RN-22 / RN-23 · El agente propone, el dominio calcula**
+  El modelo de lenguaje únicamente redacta: toda cifra mostrada
+  viene del cálculo del dominio. Ninguna `Play` modifica datos
+  financieros sin confirmación explícita del usuario, y cada
+  transición de estado es una escritura condicional.
+end note
+N_AGENT .. Play
+
+note as N_TENANT
+  **RNF-08 · Multi-tenant**
+  Toda entidad salvo el catálogo estándar de categorías
+  pertenece a un `userId` y jamás se consulta sin él.
+end note
+N_TENANT .. User
+
+@enduml
