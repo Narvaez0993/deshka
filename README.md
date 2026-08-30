@@ -28,7 +28,7 @@ Un issue por historia, con vistas por **release**, por **actividad** del recorri
 | 🗺️ [**Story map**](./docs/story-map.md) | El recorrido del usuario y el corte del MVP |
 | 📖 [**Catálogo de historias**](./historias/README.md) | Las 54 historias con sus criterios de aceptación |
 | 🔗 [**Trazabilidad**](./docs/trazabilidad.md) | RU y RF ↔ historias, y las brechas detectadas |
-| 🧩 [**Diagrama de clases**](./docs/diagrama-de-clases.md) | El modelo de dominio completo, por módulos |
+| 🧩 [**Diagrama de clases**](./docs/diagrama-de-clases.md) | La estructura del sistema: entidades, operaciones y relaciones |
 | 🛠️ [**Generador**](./tools/) | Fuente única desde la que se producen el catálogo y los issues |
 
 ## Cómo está organizado

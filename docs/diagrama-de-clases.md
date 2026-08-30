@@ -1,96 +1,65 @@
 # Diagrama de clases de diseño
 
-Modelo de dominio completo del sistema Deshka: **51 clases, 19 enumeraciones y 9 interfaces**
-repartidas en **13 paquetes**, uno por módulo de la aplicación. Corresponde al **numeral 4 del
-Entregable #1**.
+Estructura del sistema Deshka: **17 clases** con sus atributos, sus operaciones y las relaciones
+entre ellas. Corresponde al **numeral 4 del Entregable #1**.
 
-Está escrito contra el dominio real del backend, no contra una idealización: los nombres de clases y
-atributos son los que existen en el código.
+Está escrito contra el dominio real del backend: los nombres de clases y atributos son los que
+existen en el código.
 
 ## Enlaces
 
 | | |
 |---|---|
-| 🖼️ **Imagen (SVG, vectorial)** | [`assets/deshka-diagrama-de-clases.svg`](../assets/deshka-diagrama-de-clases.svg) |
-| 🖼️ **Imagen (PNG, 5037 × 7069)** | [`assets/deshka-diagrama-de-clases.png`](../assets/deshka-diagrama-de-clases.png) |
+| 🖼️ **Imagen (PNG)** | [`assets/diagrama-de-clases.png`](../assets/diagrama-de-clases.png) |
+| 🖼️ **Imagen (SVG, vectorial)** | [`assets/diagrama-de-clases.svg`](../assets/diagrama-de-clases.svg) |
 | ✏️ **Abrir en PlantUML (editable)** | https://www.plantuml.com/plantuml/uml/5Sp13S8m3030FrF008sHUBMlJi0EnhQQYCIfR8TAdHvutUzM3xGOhLvkHQaEbckEs7q1C3pILYAFrt0nwXgYaQWtUA9zKCxxF3-0nVCReM5Hu4uEN70pR3YnJ5JHnTF-_rTH_la5 |
-| ⬇️ **Descargar SVG del servidor** | https://www.plantuml.com/plantuml/svg/5Sp13S8m3030FrF008sHUBMlJi0EnhQQYCIfR8TAdHvutUzM3xGOhLvkHQaEbckEs7q1C3pILYAFrt0nwXgYaQWtUA9zKCxxF3-0nVCReM5Hu4uEN70pR3YnJ5JHnTF-_rTH_la5 |
-| ⬇️ **Descargar PNG del servidor** | https://www.plantuml.com/plantuml/png/5Sp13S8m3030FrF008sHUBMlJi0EnhQQYCIfR8TAdHvutUzM3xGOhLvkHQaEbckEs7q1C3pILYAFrt0nwXgYaQWtUA9zKCxxF3-0nVCReM5Hu4uEN70pR3YnJ5JHnTF-_rTH_la5 |
 | 📄 **Código fuente** | [`docs/diagrama-de-clases.puml`](./diagrama-de-clases.puml) |
 
-Los enlaces de plantuml.com leen el archivo directamente de este repositorio, así que **siempre
-muestran la última versión**: si el modelo cambia, el diagrama publicado cambia con él.
+Cambia `/uml/` por `/png/` o `/svg/` para descargar la imagen. Los enlaces leen el archivo
+directamente de este repositorio, así que **siempre muestran la última versión**.
 
-![Diagrama de clases de Deshka](../assets/deshka-diagrama-de-clases.png)
+![Diagrama de clases de Deshka](../assets/diagrama-de-clases.png)
 
 ## Cómo leer el diagrama
 
-Cada paquete es un **módulo** del sistema. La frontera es real: en el backend son módulos
-independientes de una arquitectura hexagonal que solo se hablan por los **puertos** del paquete
-inferior derecho, nunca importando las entidades del vecino.
+**`User` es dueño de todo.** Cada entidad del sistema pertenece a un usuario y jamás se consulta sin
+él: es una relación de composición, porque nada sobrevive al borrado de la cuenta.
 
-| Paquete | De qué responde |
+**`FundingSource` es la abstracción central.** Una cuenta de banco, una tarjeta de crédito y una meta
+de ahorro son todas *lugares donde hay plata*, y comparten un único contrato: reciben un delta y lo
+aplican. Una cuenta lo suma al saldo; una tarjeta lo **resta** a la deuda. De esa sola diferencia
+sale toda la contabilidad de tarjeta de crédito, sin casos especiales.
+
+**`Movement` es el libro mayor.** Un único tipo de registro para gasto, ingreso y transferencia. El
+monto es siempre positivo y el signo lo determina `type`, lo que hace imposible el estado
+contradictorio de un gasto negativo.
+
+**Lo derivado no se guarda.** `Debt.remaining()`, `Goal.saved()` y `Budget.spent()` son operaciones,
+no atributos, precisamente porque se calculan al leer. Un derivado almacenado es un campo que se
+desactualiza.
+
+### Nota sobre `FundingSource`
+
+Es una abstracción de **diseño**. En la implementación, cuentas, tarjetas y metas viven en
+colecciones separadas y el movimiento las referencia por un par `(tipo, id)` que se resuelve al
+aplicar los deltas — el efecto es el mismo polimorfismo, resuelto por composición en vez de herencia.
+
+## Versión detallada (anexo)
+
+El modelo completo, con objetos de valor, clases derivadas, la jerarquía de errores de dominio y los
+puertos entre módulos de la arquitectura hexagonal: **51 clases, 19 enumeraciones y 9 interfaces en
+13 paquetes**.
+
+| | |
 |---|---|
-| `shared` | Dinero, periodos y la jerarquía de errores de dominio |
-| `auth` | Identidad, credenciales, sesión y preferencias del usuario |
-| `accounts` | Fuentes de dinero: cuentas de débito, efectivo y tarjetas de crédito |
-| `categories` | Catálogo estándar y categorías propias |
-| `movements` | **El libro mayor**: gastos, ingresos y transferencias |
-| `budgets` | Techo global y topes por categoría |
-| `subscriptions` | Cobros recurrentes y su liquidación |
-| `debts` | Deudas con personas, contrapartes y gastos compartidos |
-| `goals` | Metas de ahorro |
-| `assistant` | El agente: chat, borradores, entregas proactivas y cuotas de IA |
-| `overview` | Vistas de lectura agregadas — **no persisten nada** |
-| `billing` | Planes y beneficios (Fase 5, aún no implementado) |
-| *puertos* | Las interfaces por las que un módulo le pide algo a otro |
+| 🖼️ **Imagen** | [`assets/diagrama-de-clases-detallado.png`](../assets/diagrama-de-clases-detallado.png) · [SVG](../assets/diagrama-de-clases-detallado.svg) |
+| ✏️ **Abrir en PlantUML** | https://www.plantuml.com/plantuml/uml/5SrB3i8m34NHEQk01JH6ObH6NG5xUDXM4pMVAdQenEefetjcTp57zr7ovPOgvo5wZUwxFOawZh0cZ-CzJ3ktwbezS2lqGlz0l_TvVf2enGrKa2f9OoD9M3iA9j69Cqpjb2DdI0lx_xHebRC_ |
+| 📄 **Código fuente** | [`docs/diagrama-de-clases-detallado.puml`](./diagrama-de-clases-detallado.puml) |
 
-### Estereotipos
+## Regenerar
 
-| Estereotipo | Significa |
-|---|---|
-| `«value object»` | Objeto de valor: sin identidad propia, inmutable |
-| `«derivado»` | Se **calcula** al leer; nunca se almacena |
-| `«vista»` | Composición de lectura para una pantalla; no es una entidad |
-| `«interface»` | Puerto entre módulos (arquitectura hexagonal) |
-| `«planeado»` | Diseñado pero todavía no implementado |
-
-## Las cinco decisiones que el diagrama expresa
-
-**1 · La tarjeta de crédito en base caja (RN-01, RN-02).** No hay una clase «pago de tarjeta». Un
-consumo es un `Movement` de tipo `expense` cuya fuente es una `CreditCard`: cuenta al presupuesto y
-sube la deuda. El pago es un `transfer` de cuenta a tarjeta: baja la deuda y no vuelve a tocar el
-presupuesto. Una compra a cuotas sube la deuda por su total el día de la compra.
-
-**2 · Un solo mecanismo para mover plata.** `Movement` produce `Delta`, y quien lo aplica traduce
-según el tipo de fuente — *cuenta:* `balance += delta`, *tarjeta:* `debt −= delta`. De ahí caen los
-cuatro casos del cash-basis sin ramas especiales, y por eso `type` es **inmutable**: cambiar gasto
-por transferencia altera la forma entera del movimiento, no es una edición.
-
-**3 · Nada derivado se persiste.** Lo ahorrado de una `Goal`, el saldo y el estado de una `Debt`, el
-consumo de un `Budget` y el saldo neto se calculan al leer, y por eso aparecen como clases
-`«derivado»` colgando de su dueño. Un derivado guardado es un campo que se desactualiza.
-
-**4 · La deuda es el acuerdo, no la plata (RN-10).** Registrar una deuda no crea movimientos ni
-cambia saldos. Prestar sí los mueve, pero como **transferencia** entre una cuenta y la deuda: el
-efectivo se volvió un derecho de cobro y el mes no se encarece. El gasto aparece solo al declararla
-incobrable (`writtenOffOn`), que es cuando la pérdida es real.
-
-**5 · El agente propone, el dominio calcula (RN-22, RN-23).** El modelo de lenguaje solo redacta
-`Block`; toda cifra viene del cálculo del dominio. Nada se aplica sin confirmación: por eso existen
-`MovementDraft` y `Play` como estados intermedios explícitos, con sus propias máquinas de estado.
-
-## Regenerar el diagrama
-
-Requiere Java. La primera vez, descarga `plantuml.jar` de
-[plantuml.com/download](https://plantuml.com/download).
+Requiere Java y `plantuml.jar` ([plantuml.com/download](https://plantuml.com/download)).
 
 ```bash
-java -DPLANTUML_LIMIT_SIZE=32768 -jar plantuml.jar -Playout=smetana -tsvg -o assets docs/diagrama-de-clases.puml
+java -DPLANTUML_LIMIT_SIZE=32768 -jar plantuml.jar -Playout=smetana -tpng -Sdpi=150 -o assets docs/diagrama-de-clases.puml
 ```
-
-```bash
-java -DPLANTUML_LIMIT_SIZE=32768 -jar plantuml.jar -Playout=smetana -tpng -Sdpi=140 -o assets docs/diagrama-de-clases.puml
-```
-
-Para regenerar los enlaces de plantuml.com: `python3 tools/plantuml_url.py docs/diagrama-de-clases.puml`
