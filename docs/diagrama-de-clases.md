@@ -1,7 +1,7 @@
 # Diagrama de clases de diseño
 
-Estructura del sistema Deshka: **17 clases** con sus atributos, sus operaciones y las relaciones
-entre ellas. Corresponde al **numeral 4 del Entregable #1**.
+Estructura del sistema Deshka: **17 clases y 12 enumeraciones**, con sus atributos, sus operaciones
+y las relaciones entre ellas. Corresponde al **numeral 4 del Entregable #1**.
 
 Está escrito contra el dominio real del backend: los nombres de clases y atributos son los que
 existen en el código.
@@ -12,7 +12,7 @@ existen en el código.
 |---|---|
 | 🖼️ **Imagen (PNG)** | [`assets/diagrama-de-clases.png`](../assets/diagrama-de-clases.png) |
 | 🖼️ **Imagen (SVG, vectorial)** | [`assets/diagrama-de-clases.svg`](../assets/diagrama-de-clases.svg) |
-| ✏️ **Abrir el modelo en PlantUML** | https://www.plantuml.com/plantuml/uml/5Sv14e8m3030kw_G1q1AYqpnn0lyGqY2C49XcbHdVBrwskiEQfYjRElfiYHQ2yjvDZlq1f3nNJyMcyjOL3BjoIHPJVi6Tymlb8_h-m0iEZyHI7o8FdJNbYD6ZuvTnts70QDhkQ6f4J-6TWBUIO4NV6JSi6AfQ4KLhO__OP34Fxy |
+| ✏️ **Abrir el modelo en PlantUML** | https://www.plantuml.com/plantuml/uml/5SvB4e8m303GlQVG0q1AoqTSSGBl49Fm6Q4mJQepdbvTlUqRr31PtjRJPOcqPfRpR7Re3I3XkvmMc_CZgoJQeqcqalODxfXUA1_Nzm5OT7uYK0ZNqJdVUH7g-cgiA_8D1bVLt4eRsBi6cz01xwJ02qu9DonO2bfHHSlZVnWayiyl |
 | 📄 **Código fuente** | [`docs/diagrama-de-clases.puml`](./diagrama-de-clases.puml) |
 
 Las imágenes del repositorio son la versión canónica: son las que van al documento. El enlace de
@@ -45,6 +45,21 @@ Es una abstracción de **diseño**. En la implementación, cuentas, tarjetas y m
 colecciones separadas y el movimiento las referencia por un par `(tipo, id)` que se resuelve al
 aplicar los deltas — el efecto es el mismo polimorfismo, resuelto por composición en vez de herencia.
 
+### Conformidad con UML 2.5
+
+| Elemento | Cómo aparece |
+|---|---|
+| Clase | Tres compartimentos: nombre · atributos · operaciones |
+| Visibilidad | `-` privado (identificadores) · `+` público |
+| Clase abstracta | `FundingSource`, en cursiva, con su operación abstracta también en cursiva |
+| Generalización | Triángulo hueco: `Account`, `CreditCard` y `Goal` heredan de `FundingSource` |
+| Composición | Rombo lleno desde `User` y desde `Subscription`: la parte no sobrevive al todo |
+| Agregación | Rombo hueco de `SharedEvent` a `Debt`: las deudas existen sin el evento |
+| Asociación | Con nombre, navegabilidad y multiplicidad en ambos extremos |
+| Dependencia | Flecha punteada de cada clase hacia la enumeración que usa |
+| Enumeración | Estereotipo `«enumeration»`, agrupadas en su propio paquete |
+| Multiplicidad | `Play [0..*]`, `Debt [1..*]` — nunca notación de arreglo |
+
 ## Versión detallada (anexo)
 
 El modelo completo, con objetos de valor, clases derivadas, la jerarquía de errores de dominio y los
@@ -54,7 +69,7 @@ puertos entre módulos de la arquitectura hexagonal: **51 clases, 19 enumeracion
 | | |
 |---|---|
 | 🖼️ **Imagen** | [`assets/diagrama-de-clases-detallado.png`](../assets/diagrama-de-clases-detallado.png) · [SVG](../assets/diagrama-de-clases-detallado.svg) |
-| ✏️ **Abrir el modelo en PlantUML** | https://www.plantuml.com/plantuml/uml/5SvB4e8m44NHkQlG1K12WbHmn0hSmoFTVCf0gAIZLQvU7Dqpl4CM92bRkDpMtOT2V5r4ZlnGAk5JpwiiPIoPau-xy2wrZvjw8ht1NzttLX7dvGNbsLXdR7TloS4PQD8TzHqid6wfyLF3PhJjf2Zwh6Z5dB2X8gvyGEPyIX02ADR7_sRWdSx-00 |
+| ✏️ **Abrir el modelo en PlantUML** | https://www.plantuml.com/plantuml/uml/5Sx94S8m343HErL00OaTEmlXb0heGKZACZXsnf9XXkg1qt_7Fub2rhA7qsMB60hnULKzv6PCXdUzRBgMHn7EcA9or1hJRkwGNy0VEuxU4Clw18FUNsThtU2OSHYRkMtGTU1jqrBFlITdE-ZyO2YX6DfWoR13HLnX067vII44e5GV_vk98_tw1G |
 | 📄 **Código fuente** | [`docs/diagrama-de-clases-detallado.puml`](./diagrama-de-clases-detallado.puml) |
 
 ## Regenerar
