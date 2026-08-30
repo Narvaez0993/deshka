@@ -42,7 +42,7 @@ class User {
   + objective : String
   --
   + isPlus() : Boolean
-  + canCreate(recurso) : Boolean
+  + canCreate(recurso : String) : Boolean
 }
 
 abstract class FundingSource {
@@ -50,7 +50,7 @@ abstract class FundingSource {
   + name : String
   + currency : String
   --
-  + applyDelta(monto : Integer) : void
+  + {abstract} applyDelta(monto : Integer) : void
 }
 
 class Account {
@@ -76,7 +76,7 @@ class Goal {
   + archivedAt : DateTime
   --
   + saved() : Integer
-  + progress(hoy) : Float
+  + progress(hoy : Date) : Float
   + projectedOn() : Date
   + archive() : void
 }
@@ -87,11 +87,10 @@ class Movement {
   + description : String
   + amount : Integer
   + occurredOn : Date
-  + capturedVia : CapturedVia
   --
-  + deltas() : Delta[]
-  + edit(cambios) : void
-  + delete() : void
+  + apply() : void
+  + edit(cambios : Movement) : void
+  + revert() : void
 }
 
 class Category {
@@ -106,10 +105,10 @@ class Budget {
   + scope : BudgetScope
   + target : Integer
   --
-  + spent(periodo) : Integer
-  + remaining(periodo) : Integer
-  + perDay(hoy) : Integer
-  + projected(hoy) : Integer
+  + spent(periodo : String) : Integer
+  + remaining(periodo : String) : Integer
+  + perDay(hoy : Date) : Integer
+  + projected(hoy : Date) : Integer
 }
 
 class Subscription {
@@ -120,7 +119,7 @@ class Subscription {
   + firstChargeOn : Date
   + active : Boolean
   --
-  + nextChargeOn(desde) : Date
+  + nextChargeOn(desde : Date) : Date
   + pause() : void
 }
 
@@ -143,8 +142,8 @@ class Debt {
   + note : String
   --
   + remaining() : Integer
-  + status(hoy) : DebtStatus
-  + writeOff(fecha) : void
+  + status(hoy : Date) : DebtStatus
+  + writeOff(fecha : Date) : void
 }
 
 class Counterparty {
@@ -158,17 +157,16 @@ class SharedEvent {
   + total : Integer
   + occurredOn : Date
   --
-  + split(monto, personas) : Debt[]
+  + split(monto : Integer, entre : Counterparty [1..*]) : Debt [1..*]
 }
 
 class AgentOutput {
   - id : String
   + kind : OutputKind
   + period : String
-  + payload : Snapshot
   + createdAt : DateTime
   --
-  + plays() : Play[]
+  + plays() : Play [0..*]
   + dismiss() : void
 }
 
@@ -196,14 +194,69 @@ class AIUsageCounters {
   + registrationsUsed : Integer
   + messagesUsed : Integer
   --
-  + consume(tipo) : void
-  + remaining(tier) : Integer
+  + consume(tipo : String) : void
+  + remaining(tier : Tier) : Integer
 }
 
-enum MovementType {
-  expense
-  income
-  transfer
+package "enumeraciones" as P_ENUM {
+  enum MovementType <<enumeration>> {
+    expense
+    income
+    transfer
+  }
+  enum AccountKind <<enumeration>> {
+    debit
+    cash
+  }
+  enum CategoryFlow <<enumeration>> {
+    expense
+    income
+  }
+  enum BudgetScope <<enumeration>> {
+    global
+    category
+  }
+  enum Frequency <<enumeration>> {
+    weekly
+    monthly
+    yearly
+  }
+  enum ChargeStatus <<enumeration>> {
+    pending
+    confirmed
+    auto
+    skipped
+  }
+  enum DebtDirection <<enumeration>> {
+    incoming
+    outgoing
+  }
+  enum DebtStatus <<enumeration>> {
+    pending
+    partial
+    paid
+    overdue
+    written_off
+  }
+  enum DraftStatus <<enumeration>> {
+    pending
+    confirmed
+    discarded
+  }
+  enum PlayStatus <<enumeration>> {
+    proposed
+    applying
+    applied
+    failed
+  }
+  enum OutputKind <<enumeration>> {
+    monthly_summary
+    weekly_review
+  }
+  enum Tier <<enumeration>> {
+    free
+    plus
+  }
 }
 
 ' --- herencia ---------------------------------------------------------------
@@ -226,6 +279,17 @@ Movement "0..*" --> "1" FundingSource : origen
 Movement "0..*" --> "0..1" FundingSource : destino
 Movement "0..*" --> "0..1" Category : clasifica
 Movement ..> MovementType
+User ..> Tier
+Account ..> AccountKind
+Category ..> CategoryFlow
+Budget ..> BudgetScope
+Subscription ..> Frequency
+SubscriptionCharge ..> ChargeStatus
+Debt ..> DebtDirection
+Debt ..> DebtStatus
+MovementDraft ..> DraftStatus
+Play ..> PlayStatus
+AgentOutput ..> OutputKind
 
 ' --- presupuestos -----------------------------------------------------------
 Budget "0..*" --> "0..1" Category : vigila
