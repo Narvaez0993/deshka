@@ -6,9 +6,10 @@ gasta y lo que recibe hablando, escribiendo en lenguaje natural o fotografiando 
 sistema lo organiza, lo contrasta con sus presupuestos, deudas y metas, y le explica qué está
 pasando con su plata.
 
-Este repositorio es el **artefacto ágil** del proyecto: el catálogo completo de historias de usuario
-con criterios de aceptación en Gherkin, su story map y su trazabilidad hacia los requisitos.
-Corresponde al **numeral 3 del Entregable #1** de Diseño de Sistemas de Información.
+Este repositorio reúne los **artefactos públicos** del proyecto: el catálogo completo de historias
+de usuario con criterios de aceptación en Gherkin, su story map, la trazabilidad hacia los requisitos
+y el diagrama de clases de diseño. Corresponde a los **numerales 3 y 4 del Entregable #1** de Diseño
+de Sistemas de Información.
 
 > El código fuente de la aplicación (front y back) vive en repositorios privados. Aquí solo está la
 > especificación funcional, que sí es pública.
@@ -27,6 +28,7 @@ Un issue por historia, con vistas por **release**, por **actividad** del recorri
 | 🗺️ [**Story map**](./docs/story-map.md) | El recorrido del usuario y el corte del MVP |
 | 📖 [**Catálogo de historias**](./historias/README.md) | Las 54 historias con sus criterios de aceptación |
 | 🔗 [**Trazabilidad**](./docs/trazabilidad.md) | RU y RF ↔ historias, y las brechas detectadas |
+| 🧩 [**Diagrama de clases**](./docs/diagrama-de-clases.md) | El modelo de dominio completo, por módulos |
 | 🛠️ [**Generador**](./tools/) | Fuente única desde la que se producen el catálogo y los issues |
 
 ## Cómo está organizado
