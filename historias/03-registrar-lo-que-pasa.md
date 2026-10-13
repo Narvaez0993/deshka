@@ -401,7 +401,7 @@ Característica: Registrar lo que pasa — Registrar un gasto con la foto del re
 | **Release** | Release 3 · Agente — El sistema trabaja por el usuario |
 | **Requisitos de usuario** | RU-17 |
 | **Requisitos funcionales** | RF-22 |
-| **Reglas de negocio** | — |
+| **Reglas de negocio** | RN-30 |
 | **Requisitos no funcionales** | RNF-16, RNF-24 |
 
 **Criterios de aceptación**
@@ -427,6 +427,6 @@ Característica: Registrar lo que pasa — Registrar aunque no tenga conexión
     Entonces el gasto ya está descontado
 ```
 
-> **Nota.** RNF-24 fija cuándo y cómo se sincroniza lo registrado sin conexión. La resolución de conflictos entre una edición local y una remota sobre el mismo movimiento aún no tiene regla de negocio: por eso RU-17 sigue con cobertura **parcial**.
+> **Nota.** RNF-24 fija cuándo y cómo se sincroniza lo registrado sin conexión, y RN-30 resuelve el conflicto entre una edición local y una remota del mismo movimiento: prevalece la última edición confirmada por el usuario y la otra queda en su historial.
 
 ---

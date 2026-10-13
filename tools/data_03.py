@@ -273,7 +273,7 @@ HU = [
         rol="usuario sin conexión a internet",
         quiero="registrar un movimiento y que se sincronice cuando vuelva la señal",
         para="no perder el registro justo cuando estoy fuera de cobertura",
-        ru=["RU-17"], rf=["RF-22"], rn=[], rnf=["RNF-16", "RNF-24"],
+        ru=["RU-17"], rf=["RF-22"], rn=["RN-30"], rnf=["RNF-16", "RNF-24"],
         escenarios=[
             ("Registro sin conexión", [
                 "Dado que mi dispositivo no tiene conexión",
@@ -293,6 +293,6 @@ HU = [
                 "Entonces el gasto ya está descontado",
             ]),
         ],
-        nota="RNF-24 fija cuándo y cómo se sincroniza lo registrado sin conexión. La resolución de conflictos entre una edición local y una remota sobre el mismo movimiento aún no tiene regla de negocio: por eso RU-17 sigue con cobertura **parcial**.",
+        nota="RNF-24 fija cuándo y cómo se sincroniza lo registrado sin conexión, y RN-30 resuelve el conflicto entre una edición local y una remota del mismo movimiento: prevalece la última edición confirmada por el usuario y la otra queda en su historial.",
     ),
 ]

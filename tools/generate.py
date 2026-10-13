@@ -118,11 +118,9 @@ def trazabilidad():
         for rf in h.rf:
             rf_map.setdefault(rf, []).append(h)
 
-    # Cobertura parcial vigente. En el Entregable 2, RF-54 y RF-55 cerraron la brecha de RU-18;
-    # RNF-24 volvió medible la sincronización de RU-17, pero sigue faltando la regla de conflictos.
-    PARCIALES = {
-        "RU-17": "falta la regla que resuelva el conflicto entre una edición local y una remota",
-    }
+    # Cobertura parcial vigente. En el Entregable 2, RF-54 y RF-55 cerraron la brecha de RU-18,
+    # y RNF-24 con RN-30 cerraron la de RU-17.
+    PARCIALES = {}
 
     p = ["# Trazabilidad — requisitos ↔ historias de usuario", "",
          "Cierra el ciclo del numeral 1.5 del Entregable #1, con los requisitos refinados en el "
@@ -158,6 +156,9 @@ def trazabilidad():
           "", "| Historia | Título | RU afectado |", "|---|---|---|"]
     for h in huerfanas:
         p.append(f"| `{h.id}` | {h.titulo} | {', '.join(h.ru)} |")
+    if not huerfanas:
+        p[-3:] = ["Ninguna: desde el Entregable 2 todas las historias tienen al menos un requisito "
+                  "funcional (RF-54 y RF-55 cerraron las dos brechas que quedaban)."]
     return escribir("docs/trazabilidad.md", "\n".join(p))
 
 
