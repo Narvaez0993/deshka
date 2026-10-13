@@ -71,7 +71,7 @@ Característica: Ponerme límites — Ponerme un techo global de gasto
 | **Release** | Release 1 · MVP — Registrar y entender lo básico |
 | **Requisitos de usuario** | RU-09 |
 | **Requisitos funcionales** | RF-24 |
-| **Reglas de negocio** | RN-04, RN-07 |
+| **Reglas de negocio** | RN-04, RN-07, RN-28 |
 | **Requisitos no funcionales** | RNF-02 |
 
 **Criterios de aceptación**

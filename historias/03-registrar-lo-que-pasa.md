@@ -203,8 +203,8 @@ Característica: Registrar lo que pasa — Usar y pagar la tarjeta sin que el ga
 | **Release** | Release 2 · Sin fricción — Captura asistida y control del gasto |
 | **Requisitos de usuario** | RU-01 |
 | **Requisitos funcionales** | RF-15 |
-| **Reglas de negocio** | RN-19, RN-23 |
-| **Requisitos no funcionales** | RNF-01, RNF-11 |
+| **Reglas de negocio** | RN-19 |
+| **Requisitos no funcionales** | RNF-01, RNF-11, RNF-23 |
 
 **Criterios de aceptación**
 
@@ -243,8 +243,8 @@ Característica: Registrar lo que pasa — Registrar un gasto hablando
 | **Release** | Release 2 · Sin fricción — Captura asistida y control del gasto |
 | **Requisitos de usuario** | RU-01 |
 | **Requisitos funcionales** | RF-16 |
-| **Reglas de negocio** | RN-19, RN-23 |
-| **Requisitos no funcionales** | RNF-11 |
+| **Reglas de negocio** | RN-19 |
+| **Requisitos no funcionales** | RNF-11, RNF-23 |
 
 **Criterios de aceptación**
 
@@ -363,8 +363,8 @@ Característica: Registrar lo que pasa — Recibir una categoría sugerida para 
 | **Release** | Release 3 · Agente — El sistema trabaja por el usuario |
 | **Requisitos de usuario** | RU-01 |
 | **Requisitos funcionales** | RF-17 |
-| **Reglas de negocio** | RN-19, RN-23 |
-| **Requisitos no funcionales** | RNF-01, RNF-11 |
+| **Reglas de negocio** | RN-19 |
+| **Requisitos no funcionales** | RNF-01, RNF-11, RNF-23 |
 
 **Criterios de aceptación**
 
@@ -402,7 +402,7 @@ Característica: Registrar lo que pasa — Registrar un gasto con la foto del re
 | **Requisitos de usuario** | RU-17 |
 | **Requisitos funcionales** | RF-22 |
 | **Reglas de negocio** | — |
-| **Requisitos no funcionales** | RNF-16 |
+| **Requisitos no funcionales** | RNF-16, RNF-24 |
 
 **Criterios de aceptación**
 
@@ -427,6 +427,6 @@ Característica: Registrar lo que pasa — Registrar aunque no tenga conexión
     Entonces el gasto ya está descontado
 ```
 
-> **Nota.** La resolución de conflictos entre una edición local y una remota sobre el mismo movimiento aún no tiene regla de negocio definida: es la brecha que la matriz marca como cobertura **parcial** en RU-17.
+> **Nota.** RNF-24 fija cuándo y cómo se sincroniza lo registrado sin conexión. La resolución de conflictos entre una edición local y una remota sobre el mismo movimiento aún no tiene regla de negocio: por eso RU-17 sigue con cobertura **parcial**.
 
 ---

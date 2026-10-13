@@ -1,0 +1,632 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8">
+<title>Deshka · Story Mapping</title>
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; background: #F6F7F9; color: #1A202C;
+         font-family: -apple-system, "Helvetica Neue", Helvetica, Arial, sans-serif; }
+  .page { width: 2480px; padding: 40px 40px 36px; }
+  .eyebrow { font-size: 13px; letter-spacing: .12em; color: #6B7280; text-transform: uppercase; }
+  h1 { font-size: 34px; font-weight: 600; margin: 6px 0 10px; }
+  .intro { display: flex; gap: 28px; align-items: flex-start; justify-content: space-between; }
+  .lead { font-size: 16px; color: #4A5568; max-width: 720px; line-height: 1.45; margin: 0; }
+  .persona { background: #fff; border: 1px solid #DDE1E7; border-radius: 10px; padding: 14px 18px;
+             max-width: 760px; font-size: 14.5px; line-height: 1.45; color: #2D3748; }
+  .persona b { color: #1A202C; }
+  .leyenda { display: flex; flex-direction: column; gap: 8px; font-size: 13px; color: #4A5568; min-width: 520px; }
+  .leyenda .fila { display: flex; gap: 16px; flex-wrap: wrap; align-items: center; }
+  .sw { display: inline-block; width: 12px; height: 12px; border-radius: 3px; margin-right: 6px; vertical-align: -1px; }
+  .pill { border-radius: 999px; padding: 2px 8px; font-size: 12px; font-weight: 600; }
+  .grid { display: grid; grid-template-columns: 250px repeat(9, 1fr); gap: 10px; margin-top: 26px; }
+  .rotulo { font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: #6B7280; padding-top: 10px; }
+  .rotulo small { display:block; text-transform:none; letter-spacing:0; font-size:12.5px; color:#8A93A2; margin-top:4px; line-height:1.35; }
+  .actividad { background: #1E2A4A; color: #fff; border-radius: 8px; padding: 14px 12px; font-size: 15.5px;
+               font-weight: 600; line-height: 1.25; min-height: 64px; display: flex; gap: 8px; align-items: flex-start; }
+  .actividad .num { font-size: 12px; opacity: .65; padding-top: 2px; font-weight: 500; }
+  .tareas { display: flex; flex-direction: column; gap: 6px; }
+  .tareas .t { background: #E9ECF1; border-radius: 6px; padding: 7px 10px; font-size: 13.5px; color: #374151; }
+  .carril { display: contents; }
+  .lane-label { background: var(--f); border-left: 5px solid var(--c); border-radius: 8px; padding: 14px 14px 12px; }
+  .lane-nombre { font-size: 13px; letter-spacing: .08em; text-transform: uppercase; color: var(--c); font-weight: 700; }
+  .lane-lema { font-size: 16px; font-weight: 600; margin: 4px 0 10px; color: #1A202C; }
+  .lane-k { font-size: 11.5px; text-transform: uppercase; letter-spacing: .06em; color: #6B7280; margin-top: 8px; }
+  .lane-t { font-size: 13px; line-height: 1.38; color: #2D3748; margin-top: 2px; }
+  .lane-cuenta { font-size: 12.5px; color: var(--c); font-weight: 600; margin-top: 12px; }
+  .celda { background: var(--f); border-radius: 8px; padding: 8px; display: flex; flex-direction: column; gap: 8px; }
+  .celda.vacia { align-items: stretch; }
+  .hueco { border: 1.5px dashed #CBD2DC; border-radius: 6px; color: #A0AAB8; text-align: center; padding: 10px; font-size: 14px; }
+  .card { background: #fff; border-radius: 7px; padding: 9px 10px 8px; border: 1px solid #E2E6EC;
+          border-left: 4px solid var(--c); box-shadow: 0 1px 0 rgba(0,0,0,.03); }
+  .card.nueva { border-style: dashed; border-left-style: solid; }
+  .card-top { display: flex; justify-content: space-between; align-items: center; }
+  .hu { font-family: "SF Mono", Menlo, monospace; font-size: 11.5px; color: #6B7280; }
+  .cambio { font-size: 10.5px; font-weight: 700; text-transform: uppercase; letter-spacing: .05em;
+            color: #1E2A4A; background: #E4E9F7; border-radius: 4px; padding: 1px 6px; }
+  .titulo { font-size: 14px; line-height: 1.3; margin: 4px 0 4px; color: #1A202C; }
+  .tarea { font-size: 11.5px; color: #8A93A2; margin-bottom: 6px; }
+  .card-bottom { display: flex; justify-content: space-between; align-items: center; gap: 6px; }
+  .rf { font-family: "SF Mono", Menlo, monospace; font-size: 11px; color: #4A5568; }
+  .estado { border-radius: 999px; padding: 2px 7px; font-size: 11px; font-weight: 600; white-space: nowrap; }
+  .notas { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; margin-top: 28px; border-top: 1px solid #DDE1E7;
+           padding-top: 18px; font-size: 13.5px; line-height: 1.5; color: #4A5568; }
+  .notas b { color: #1A202C; }
+</style></head>
+<body><div class="page">
+  <div class="eyebrow">Deshka · Story Mapping (refinado en el Entregable 2)</div>
+  <h1>Story Mapping</h1>
+  <div class="intro">
+    <div>
+      <p class="lead">El recorrido del usuario de izquierda a derecha y, hacia abajo, las historias ordenadas por release.
+        Cada tarjeta cita su requisito funcional, la tarea del usuario a la que responde y su estado en el tablero.</p>
+      <div class="persona" style="margin-top:14px">
+        <b>Para quién:</b> Ana, 28 años, empleada en Medellín. Paga casi todo con tarjeta y ha abandonado dos veces
+        su Excel de gastos porque registrar cansa y los números nunca cuadran.<br>
+        <b>Para qué:</b> saber cuánto dinero tiene de verdad, en qué se le va y si va a llegar a sus metas,
+        sin digitar todo ni saber de finanzas.
+      </div>
+    </div>
+    <div class="leyenda">
+      <div class="fila">
+        <span><span class="sw" style="background:#1F7A4D"></span>Release 1 · MVP</span>
+        <span><span class="sw" style="background:#A86A12"></span>Release 2 · Sin fricción</span>
+        <span><span class="sw" style="background:#5B3FB0"></span>Release 3 · Agente</span>
+      </div>
+      <div class="fila">
+        <span class="pill" style="color:#1F7A4D;background:#E3F3E9">✓ Hecha · 19</span>
+        <span class="pill" style="color:#A86A12;background:#FBEFD9">◐ En progreso · 26</span>
+        <span class="pill" style="color:#5A6475;background:#EEF0F3">○ Pendiente · 10</span>
+        <span style="color:#6B7280">55 historias en total</span>
+      </div>
+      <div class="fila">
+        <span class="cambio">nueva</span><span class="cambio">movida</span><span class="cambio">al MVP</span>
+        <span class="cambio">ajustada</span><span style="color:#6B7280">cambios frente al Entregable 1</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid">
+    <div class="rotulo">Actividades<small>El recorrido del usuario</small></div>
+    <div class="actividad"><span class="num">01</span>Empezar a usar Deshka</div><div class="actividad"><span class="num">02</span>Configurar mi dinero</div><div class="actividad"><span class="num">03</span>Registrar lo que pasa</div><div class="actividad"><span class="num">04</span>Revisar mi día a día</div><div class="actividad"><span class="num">05</span>Ponerme límites</div><div class="actividad"><span class="num">06</span>Cuidar mis compromisos</div><div class="actividad"><span class="num">07</span>Ahorrar con propósito</div><div class="actividad"><span class="num">08</span>Entender y decidir</div><div class="actividad"><span class="num">09</span>Administrar mi cuenta y mi plan</div>
+    <div class="rotulo">Tareas<small>Lo que hace en cada paso</small></div>
+    <div class="tareas"><div class="t">Crear mi cuenta</div><div class="t">Entrar</div><div class="t">Contar qué quiero lograr</div></div><div class="tareas"><div class="t">Registrar mis fuentes</div><div class="t">Organizar categorías</div></div><div class="tareas"><div class="t">Capturar el movimiento</div><div class="t">Confirmar lo que entendió</div></div><div class="tareas"><div class="t">Ver cómo voy</div><div class="t">Depurar el historial</div></div><div class="tareas"><div class="t">Definir el tope</div><div class="t">Seguir el consumo</div></div><div class="tareas"><div class="t">Suscripciones</div><div class="t">Deudas con personas</div></div><div class="tareas"><div class="t">Crear la meta</div><div class="t">Mover plata a la meta</div><div class="t">Seguir y cerrar la meta</div></div><div class="tareas"><div class="t">Recibir avisos</div><div class="t">Conversar con el agente</div><div class="t">Recibir mis resúmenes</div><div class="t">Aplicar lo que propone</div></div><div class="tareas"><div class="t">Ajustar mi cuenta</div><div class="t">Ver mi consumo</div><div class="t">Mejorar el plan</div><div class="t">Llevarme o borrar mis datos</div></div>
+    
+    <section class="carril" style="--c:#1F7A4D;--f:#EAF5EE">
+      <div class="lane-label">
+        <div class="lane-nombre">Release 1 · MVP</div>
+        <div class="lane-lema">Registrar y entender lo básico</div>
+        <div class="lane-k">Objetivo</div><div class="lane-t">Que todo lo que entra y sale quede registrado, con la tarjeta bien contada, y que el usuario se mida contra un tope propio y reciba la explicación de su mes.</div>
+        <div class="lane-k">Cómo sabemos que se logró</div><div class="lane-t">En su primer mes registra movimientos al menos 5 días por semana y su saldo neto coincide con el real.</div>
+        <div class="lane-cuenta">17 historias · 10 hechas</div>
+      </div>
+      <div class="celda">
+      <div class="card r1">
+        <div class="card-top"><span class="hu">HU-01</span><span class="cambio">ajustada</span></div>
+        <div class="titulo">Crear mi cuenta con correo y contraseña</div>
+        <div class="tarea">Crear mi cuenta</div>
+        <div class="card-bottom">
+          <span class="rf">RF-01 · RF-53</span>
+          <span class="estado" style="color:#1F7A4D;background:#E3F3E9">✓ Hecha</span>
+        </div>
+      </div>
+      <div class="card r1">
+        <div class="card-top"><span class="hu">HU-02</span></div>
+        <div class="titulo">Entrar y salir de mi cuenta</div>
+        <div class="tarea">Entrar</div>
+        <div class="card-bottom">
+          <span class="rf">RF-02</span>
+          <span class="estado" style="color:#1F7A4D;background:#E3F3E9">✓ Hecha</span>
+        </div>
+      </div>
+      <div class="card r1">
+        <div class="card-top"><span class="hu">HU-03</span></div>
+        <div class="titulo">Onboarding que siembra mis datos reales</div>
+        <div class="tarea">Contar qué quiero lograr</div>
+        <div class="card-bottom">
+          <span class="rf">RF-03</span>
+          <span class="estado" style="color:#A86A12;background:#FBEFD9">◐ En progreso</span>
+        </div>
+      </div></div><div class="celda">
+      <div class="card r1">
+        <div class="card-top"><span class="hu">HU-07</span></div>
+        <div class="titulo">Registrar mis cuentas de banco y mi efectivo</div>
+        <div class="tarea">Registrar mis fuentes</div>
+        <div class="card-bottom">
+          <span class="rf">RF-05</span>
+          <span class="estado" style="color:#A86A12;background:#FBEFD9">◐ En progreso</span>
+        </div>
+      </div>
+      <div class="card r1">
+        <div class="card-top"><span class="hu">HU-08</span></div>
+        <div class="titulo">Registrar mi tarjeta de crédito</div>
+        <div class="tarea">Registrar mis fuentes</div>
+        <div class="card-bottom">
+          <span class="rf">RF-06</span>
+          <span class="estado" style="color:#A86A12;background:#FBEFD9">◐ En progreso</span>
+        </div>
+      </div>
+      <div class="card r1">
+        <div class="card-top"><span class="hu">HU-09</span></div>
+        <div class="titulo">Ver un único saldo que ya descuenta lo que debo</div>
+        <div class="tarea">Registrar mis fuentes</div>
+        <div class="card-bottom">
+          <span class="rf">RF-07</span>
+          <span class="estado" style="color:#1F7A4D;background:#E3F3E9">✓ Hecha</span>
+        </div>
+      </div>
+      <div class="card r1">
+        <div class="card-top"><span class="hu">HU-10</span></div>
+        <div class="titulo">Clasificar mis gastos con el catálogo estándar</div>
+        <div class="tarea">Organizar categorías</div>
+        <div class="card-bottom">
+          <span class="rf">RF-09</span>
+          <span class="estado" style="color:#A86A12;background:#FBEFD9">◐ En progreso</span>
+        </div>
+      </div></div><div class="celda">
+      <div class="card r1">
+        <div class="card-top"><span class="hu">HU-13</span></div>
+        <div class="titulo">Registrar un gasto a mano</div>
+        <div class="tarea">Capturar el movimiento</div>
+        <div class="card-bottom">
+          <span class="rf">RF-12</span>
+          <span class="estado" style="color:#1F7A4D;background:#E3F3E9">✓ Hecha</span>
+        </div>
+      </div>
+      <div class="card r1">
+        <div class="card-top"><span class="hu">HU-14</span></div>
+        <div class="titulo">Registrar el dinero que recibo</div>
+        <div class="tarea">Capturar el movimiento</div>
+        <div class="card-bottom">
+          <span class="rf">RF-13</span>
+          <span class="estado" style="color:#A86A12;background:#FBEFD9">◐ En progreso</span>
+        </div>
+      </div>
+      <div class="card r1">
+        <div class="card-top"><span class="hu">HU-15</span></div>
+        <div class="titulo">Mover dinero entre mis propias fuentes</div>
+        <div class="tarea">Capturar el movimiento</div>
+        <div class="card-bottom">
+          <span class="rf">RF-14</span>
+          <span class="estado" style="color:#1F7A4D;background:#E3F3E9">✓ Hecha</span>
+        </div>
+      </div>
+      <div class="card r1">
+        <div class="card-top"><span class="hu">HU-16</span></div>
+        <div class="titulo">Usar y pagar la tarjeta sin que el gasto se cuente dos veces</div>
+        <div class="tarea">Capturar el movimiento</div>
+        <div class="card-bottom">
+          <span class="rf">RF-21</span>
+          <span class="estado" style="color:#1F7A4D;background:#E3F3E9">✓ Hecha</span>
+        </div>
+      </div></div><div class="celda">
+      <div class="card r1">
+        <div class="card-top"><span class="hu">HU-25</span></div>
+        <div class="titulo">Ver en el inicio cómo va mi mes</div>
+        <div class="tarea">Ver cómo voy</div>
+        <div class="card-bottom">
+          <span class="rf">RF-28</span>
+          <span class="estado" style="color:#A86A12;background:#FBEFD9">◐ En progreso</span>
+        </div>
+      </div>
+      <div class="card r1">
+        <div class="card-top"><span class="hu">HU-23</span></div>
+        <div class="titulo">Consultar mi historial con filtros</div>
+        <div class="tarea">Depurar el historial</div>
+        <div class="card-bottom">
+          <span class="rf">RF-20</span>
+          <span class="estado" style="color:#1F7A4D;background:#E3F3E9">✓ Hecha</span>
+        </div>
+      </div>
+      <div class="card r1">
+        <div class="card-top"><span class="hu">HU-24</span></div>
+        <div class="titulo">Editar y eliminar movimientos del historial</div>
+        <div class="tarea">Depurar el historial</div>
+        <div class="card-bottom">
+          <span class="rf">RF-19</span>
+          <span class="estado" style="color:#1F7A4D;background:#E3F3E9">✓ Hecha</span>
+        </div>
+      </div></div><div class="celda">
+      <div class="card r1">
+        <div class="card-top"><span class="hu">HU-28</span></div>
+        <div class="titulo">Ponerme un techo global de gasto</div>
+        <div class="tarea">Definir el tope</div>
+        <div class="card-bottom">
+          <span class="rf">RF-23</span>
+          <span class="estado" style="color:#1F7A4D;background:#E3F3E9">✓ Hecha</span>
+        </div>
+      </div>
+      <div class="card r1">
+        <div class="card-top"><span class="hu">HU-29</span></div>
+        <div class="titulo">Saber cuánto puedo gastar por día</div>
+        <div class="tarea">Seguir el consumo</div>
+        <div class="card-bottom">
+          <span class="rf">RF-24</span>
+          <span class="estado" style="color:#A86A12;background:#FBEFD9">◐ En progreso</span>
+        </div>
+      </div></div><div class="celda vacia"><div class="hueco">—</div></div><div class="celda vacia"><div class="hueco">—</div></div><div class="celda">
+      <div class="card r1">
+        <div class="card-top"><span class="hu">HU-47</span><span class="cambio">al MVP</span></div>
+        <div class="titulo">Recibir el corte de mi mes</div>
+        <div class="tarea">Recibir mis resúmenes</div>
+        <div class="card-bottom">
+          <span class="rf">RF-45 · RF-57</span>
+          <span class="estado" style="color:#1F7A4D;background:#E3F3E9">✓ Hecha</span>
+        </div>
+      </div></div><div class="celda vacia"><div class="hueco">—</div></div>
+    </section>
+    <section class="carril" style="--c:#A86A12;--f:#FBF2E4">
+      <div class="lane-label">
+        <div class="lane-nombre">Release 2 · Sin fricción</div>
+        <div class="lane-lema">Captura asistida y control del gasto</div>
+        <div class="lane-k">Objetivo</div><div class="lane-t">Registrar en segundos hablando o escribiendo, y controlar el gasto con topes, compromisos y metas.</div>
+        <div class="lane-k">Cómo sabemos que se logró</div><div class="lane-t">Al menos 6 de cada 10 movimientos entran por voz o texto, y el registro por voz tarda menos de 5 s (RNF-01).</div>
+        <div class="lane-cuenta">23 historias · 8 hechas</div>
+      </div>
+      <div class="celda vacia"><div class="hueco">—</div></div><div class="celda">
+      <div class="card r2">
+        <div class="card-top"><span class="hu">HU-12</span></div>
+        <div class="titulo">Saber cuándo llegué al límite de fuentes de mi plan</div>
+        <div class="tarea">Registrar mis fuentes</div>
+        <div class="card-bottom">
+          <span class="rf">RF-08</span>
+          <span class="estado" style="color:#A86A12;background:#FBEFD9">◐ En progreso</span>
+        </div>
+      </div>
+      <div class="card r2">
+        <div class="card-top"><span class="hu">HU-11</span></div>
+        <div class="titulo">Crear mis propias categorías</div>
+        <div class="tarea">Organizar categorías</div>
+        <div class="card-bottom">
+          <span class="rf">RF-10</span>
+          <span class="estado" style="color:#A86A12;background:#FBEFD9">◐ En progreso</span>
+        </div>
+      </div></div><div class="celda">
+      <div class="card r2">
+        <div class="card-top"><span class="hu">HU-17</span></div>
+        <div class="titulo">Registrar un gasto hablando</div>
+        <div class="tarea">Capturar el movimiento</div>
+        <div class="card-bottom">
+          <span class="rf">RF-15</span>
+          <span class="estado" style="color:#A86A12;background:#FBEFD9">◐ En progreso</span>
+        </div>
+      </div>
+      <div class="card r2">
+        <div class="card-top"><span class="hu">HU-18</span></div>
+        <div class="titulo">Registrar un gasto escribiendo en mis palabras</div>
+        <div class="tarea">Capturar el movimiento</div>
+        <div class="card-bottom">
+          <span class="rf">RF-16</span>
+          <span class="estado" style="color:#A86A12;background:#FBEFD9">◐ En progreso</span>
+        </div>
+      </div>
+      <div class="card r2">
+        <div class="card-top"><span class="hu">HU-19</span></div>
+        <div class="titulo">Revisar y corregir lo que el sistema entendió</div>
+        <div class="tarea">Confirmar lo que entendió</div>
+        <div class="card-bottom">
+          <span class="rf">RF-18 · RF-19</span>
+          <span class="estado" style="color:#A86A12;background:#FBEFD9">◐ En progreso</span>
+        </div>
+      </div>
+      <div class="card r2">
+        <div class="card-top"><span class="hu">HU-20</span></div>
+        <div class="titulo">Recibir una categoría sugerida para cada movimiento</div>
+        <div class="tarea">Confirmar lo que entendió</div>
+        <div class="card-bottom">
+          <span class="rf">RF-11</span>
+          <span class="estado" style="color:#A86A12;background:#FBEFD9">◐ En progreso</span>
+        </div>
+      </div></div><div class="celda">
+      <div class="card r2">
+        <div class="card-top"><span class="hu">HU-26</span></div>
+        <div class="titulo">Comparar mi gasto con el mes pasado</div>
+        <div class="tarea">Ver cómo voy</div>
+        <div class="card-bottom">
+          <span class="rf">RF-29</span>
+          <span class="estado" style="color:#1F7A4D;background:#E3F3E9">✓ Hecha</span>
+        </div>
+      </div>
+      <div class="card r2">
+        <div class="card-top"><span class="hu">HU-27</span></div>
+        <div class="titulo">Saber cuánto ahorré este mes</div>
+        <div class="tarea">Ver cómo voy</div>
+        <div class="card-bottom">
+          <span class="rf">RF-30</span>
+          <span class="estado" style="color:#A86A12;background:#FBEFD9">◐ En progreso</span>
+        </div>
+      </div></div><div class="celda">
+      <div class="card r2">
+        <div class="card-top"><span class="hu">HU-30</span></div>
+        <div class="titulo">Ponerme topes por categoría</div>
+        <div class="tarea">Definir el tope</div>
+        <div class="card-bottom">
+          <span class="rf">RF-23</span>
+          <span class="estado" style="color:#1F7A4D;background:#E3F3E9">✓ Hecha</span>
+        </div>
+      </div>
+      <div class="card r2">
+        <div class="card-top"><span class="hu">HU-31</span></div>
+        <div class="titulo">Que me avisen al ochenta por ciento y al pasarme</div>
+        <div class="tarea">Seguir el consumo</div>
+        <div class="card-bottom">
+          <span class="rf">RF-26</span>
+          <span class="estado" style="color:#5A6475;background:#EEF0F3">○ Pendiente</span>
+        </div>
+      </div>
+      <div class="card r2">
+        <div class="card-top"><span class="hu">HU-32</span></div>
+        <div class="titulo">Ver cómo voy a cerrar el mes</div>
+        <div class="tarea">Seguir el consumo</div>
+        <div class="card-bottom">
+          <span class="rf">RF-25</span>
+          <span class="estado" style="color:#A86A12;background:#FBEFD9">◐ En progreso</span>
+        </div>
+      </div></div><div class="celda">
+      <div class="card r2">
+        <div class="card-top"><span class="hu">HU-34</span></div>
+        <div class="titulo">Registrar mis suscripciones</div>
+        <div class="tarea">Suscripciones</div>
+        <div class="card-bottom">
+          <span class="rf">RF-31</span>
+          <span class="estado" style="color:#1F7A4D;background:#E3F3E9">✓ Hecha</span>
+        </div>
+      </div>
+      <div class="card r2">
+        <div class="card-top"><span class="hu">HU-35</span></div>
+        <div class="titulo">Confirmar el cobro del día</div>
+        <div class="tarea">Suscripciones</div>
+        <div class="card-bottom">
+          <span class="rf">RF-32</span>
+          <span class="estado" style="color:#A86A12;background:#FBEFD9">◐ En progreso</span>
+        </div>
+      </div>
+      <div class="card r2">
+        <div class="card-top"><span class="hu">HU-36</span></div>
+        <div class="titulo">Que el cobro se liquide solo si no respondo</div>
+        <div class="tarea">Suscripciones</div>
+        <div class="card-bottom">
+          <span class="rf">RF-33</span>
+          <span class="estado" style="color:#1F7A4D;background:#E3F3E9">✓ Hecha</span>
+        </div>
+      </div>
+      <div class="card r2">
+        <div class="card-top"><span class="hu">HU-37</span></div>
+        <div class="titulo">Llevar cuentas de lo que debo y de lo que me deben</div>
+        <div class="tarea">Deudas con personas</div>
+        <div class="card-bottom">
+          <span class="rf">RF-35 · RF-36</span>
+          <span class="estado" style="color:#A86A12;background:#FBEFD9">◐ En progreso</span>
+        </div>
+      </div></div><div class="celda">
+      <div class="card r2">
+        <div class="card-top"><span class="hu">HU-41</span></div>
+        <div class="titulo">Crear una meta de ahorro</div>
+        <div class="tarea">Crear la meta</div>
+        <div class="card-bottom">
+          <span class="rf">RF-39</span>
+          <span class="estado" style="color:#1F7A4D;background:#E3F3E9">✓ Hecha</span>
+        </div>
+      </div>
+      <div class="card r2">
+        <div class="card-top"><span class="hu">HU-42</span></div>
+        <div class="titulo">Aportar y retirar dinero de mi meta</div>
+        <div class="tarea">Mover plata a la meta</div>
+        <div class="card-bottom">
+          <span class="rf">RF-40</span>
+          <span class="estado" style="color:#1F7A4D;background:#E3F3E9">✓ Hecha</span>
+        </div>
+      </div>
+      <div class="card r2">
+        <div class="card-top"><span class="hu">HU-43</span><span class="cambio">movida</span></div>
+        <div class="titulo">Ver mi progreso y si voy a llegar a tiempo</div>
+        <div class="tarea">Seguir y cerrar la meta</div>
+        <div class="card-bottom">
+          <span class="rf">RF-41</span>
+          <span class="estado" style="color:#1F7A4D;background:#E3F3E9">✓ Hecha</span>
+        </div>
+      </div></div><div class="celda">
+      <div class="card r2">
+        <div class="card-top"><span class="hu">HU-45</span></div>
+        <div class="titulo">Recibir avisos calculados sobre mi plata</div>
+        <div class="tarea">Recibir avisos</div>
+        <div class="card-bottom">
+          <span class="rf">RF-43</span>
+          <span class="estado" style="color:#A86A12;background:#FBEFD9">◐ En progreso</span>
+        </div>
+      </div>
+      <div class="card r2">
+        <div class="card-top"><span class="hu">HU-46</span><span class="cambio">movida</span></div>
+        <div class="titulo">Preguntarle al agente en mis palabras</div>
+        <div class="tarea">Conversar con el agente</div>
+        <div class="card-bottom">
+          <span class="rf">RF-44 · RF-57</span>
+          <span class="estado" style="color:#A86A12;background:#FBEFD9">◐ En progreso</span>
+        </div>
+      </div></div><div class="celda">
+      <div class="card r2">
+        <div class="card-top"><span class="hu">HU-04</span><span class="cambio">movida</span></div>
+        <div class="titulo">Ajustar mi perfil y mis preferencias</div>
+        <div class="tarea">Ajustar mi cuenta</div>
+        <div class="card-bottom">
+          <span class="rf">RF-04</span>
+          <span class="estado" style="color:#A86A12;background:#FBEFD9">◐ En progreso</span>
+        </div>
+      </div>
+      <div class="card r2">
+        <div class="card-top"><span class="hu">HU-51</span></div>
+        <div class="titulo">Ver cuánto llevo consumido de mi plan</div>
+        <div class="tarea">Ver mi consumo</div>
+        <div class="card-bottom">
+          <span class="rf">RF-49 · RF-58</span>
+          <span class="estado" style="color:#1F7A4D;background:#E3F3E9">✓ Hecha</span>
+        </div>
+      </div>
+      <div class="card r2">
+        <div class="card-top"><span class="hu">HU-52</span></div>
+        <div class="titulo">Seguir registrando cuando se me acaba la cuota</div>
+        <div class="tarea">Ver mi consumo</div>
+        <div class="card-bottom">
+          <span class="rf">RF-50</span>
+          <span class="estado" style="color:#A86A12;background:#FBEFD9">◐ En progreso</span>
+        </div>
+      </div></div>
+    </section>
+    <section class="carril" style="--c:#5B3FB0;--f:#F0ECFA">
+      <div class="lane-label">
+        <div class="lane-nombre">Release 3 · Agente</div>
+        <div class="lane-lema">El sistema trabaja por el usuario</div>
+        <div class="lane-k">Objetivo</div><div class="lane-t">Que el agente revise, avise y proponga sin que el usuario se lo pida.</div>
+        <div class="lane-k">Cómo sabemos que se logró</div><div class="lane-t">Al menos la mitad de los usuarios abre su revisión semanal y aplica una jugada al mes.</div>
+        <div class="lane-cuenta">15 historias · 1 hechas</div>
+      </div>
+      <div class="celda">
+      <div class="card r3">
+        <div class="card-top"><span class="hu">HU-05</span><span class="cambio">ajustada</span></div>
+        <div class="titulo">Recuperar mi contraseña</div>
+        <div class="tarea">Entrar</div>
+        <div class="card-bottom">
+          <span class="rf">RF-54</span>
+          <span class="estado" style="color:#5A6475;background:#EEF0F3">○ Pendiente</span>
+        </div>
+      </div>
+      <div class="card r3">
+        <div class="card-top"><span class="hu">HU-06</span><span class="cambio">ajustada</span></div>
+        <div class="titulo">Entrar con Google o con Apple</div>
+        <div class="tarea">Entrar</div>
+        <div class="card-bottom">
+          <span class="rf">RF-55</span>
+          <span class="estado" style="color:#5A6475;background:#EEF0F3">○ Pendiente</span>
+        </div>
+      </div></div><div class="celda vacia"><div class="hueco">—</div></div><div class="celda">
+      <div class="card r3">
+        <div class="card-top"><span class="hu">HU-21</span></div>
+        <div class="titulo">Registrar un gasto con la foto del recibo</div>
+        <div class="tarea">Capturar el movimiento</div>
+        <div class="card-bottom">
+          <span class="rf">RF-17</span>
+          <span class="estado" style="color:#5A6475;background:#EEF0F3">○ Pendiente</span>
+        </div>
+      </div>
+      <div class="card r3">
+        <div class="card-top"><span class="hu">HU-22</span></div>
+        <div class="titulo">Registrar aunque no tenga conexión</div>
+        <div class="tarea">Capturar el movimiento</div>
+        <div class="card-bottom">
+          <span class="rf">RF-22</span>
+          <span class="estado" style="color:#5A6475;background:#EEF0F3">○ Pendiente</span>
+        </div>
+      </div></div><div class="celda vacia"><div class="hueco">—</div></div><div class="celda">
+      <div class="card r3">
+        <div class="card-top"><span class="hu">HU-33</span></div>
+        <div class="titulo">Ver en qué comercios se me fue la plata</div>
+        <div class="tarea">Seguir el consumo</div>
+        <div class="card-bottom">
+          <span class="rf">RF-27</span>
+          <span class="estado" style="color:#5A6475;background:#EEF0F3">○ Pendiente</span>
+        </div>
+      </div></div><div class="celda">
+      <div class="card r3">
+        <div class="card-top"><span class="hu">HU-38</span></div>
+        <div class="titulo">Que el sistema detecte mis cargos repetidos</div>
+        <div class="tarea">Suscripciones</div>
+        <div class="card-bottom">
+          <span class="rf">RF-34</span>
+          <span class="estado" style="color:#5A6475;background:#EEF0F3">○ Pendiente</span>
+        </div>
+      </div>
+      <div class="card r3">
+        <div class="card-top"><span class="hu">HU-39</span></div>
+        <div class="titulo">Dividir un gasto compartido</div>
+        <div class="tarea">Deudas con personas</div>
+        <div class="card-bottom">
+          <span class="rf">RF-37</span>
+          <span class="estado" style="color:#A86A12;background:#FBEFD9">◐ En progreso</span>
+        </div>
+      </div>
+      <div class="card r3">
+        <div class="card-top"><span class="hu">HU-40</span></div>
+        <div class="titulo">Recordarle la deuda a la otra persona</div>
+        <div class="tarea">Deudas con personas</div>
+        <div class="card-bottom">
+          <span class="rf">RF-38</span>
+          <span class="estado" style="color:#A86A12;background:#FBEFD9">◐ En progreso</span>
+        </div>
+      </div></div><div class="celda">
+      <div class="card r3">
+        <div class="card-top"><span class="hu">HU-44</span><span class="cambio">movida</span></div>
+        <div class="titulo">Cerrar y archivar una meta</div>
+        <div class="tarea">Seguir y cerrar la meta</div>
+        <div class="card-bottom">
+          <span class="rf">RF-42</span>
+          <span class="estado" style="color:#1F7A4D;background:#E3F3E9">✓ Hecha</span>
+        </div>
+      </div></div><div class="celda">
+      <div class="card r3">
+        <div class="card-top"><span class="hu">HU-48</span><span class="cambio">movida</span></div>
+        <div class="titulo">Recibir mi revisión semanal</div>
+        <div class="tarea">Recibir mis resúmenes</div>
+        <div class="card-bottom">
+          <span class="rf">RF-46</span>
+          <span class="estado" style="color:#A86A12;background:#FBEFD9">◐ En progreso</span>
+        </div>
+      </div>
+      <div class="card r3">
+        <div class="card-top"><span class="hu">HU-50</span><span class="cambio">movida</span></div>
+        <div class="titulo">Volver a leer lo que el agente ya me entregó</div>
+        <div class="tarea">Recibir mis resúmenes</div>
+        <div class="card-bottom">
+          <span class="rf">RF-48</span>
+          <span class="estado" style="color:#A86A12;background:#FBEFD9">◐ En progreso</span>
+        </div>
+      </div>
+      <div class="card r3">
+        <div class="card-top"><span class="hu">HU-49</span><span class="cambio">movida</span></div>
+        <div class="titulo">Aplicar una jugada que el agente me sugirió</div>
+        <div class="tarea">Aplicar lo que propone</div>
+        <div class="card-bottom">
+          <span class="rf">RF-47</span>
+          <span class="estado" style="color:#A86A12;background:#FBEFD9">◐ En progreso</span>
+        </div>
+      </div></div><div class="celda">
+      <div class="card r3">
+        <div class="card-top"><span class="hu">HU-53</span></div>
+        <div class="titulo">Comprar el plan de pago</div>
+        <div class="tarea">Mejorar el plan</div>
+        <div class="card-bottom">
+          <span class="rf">RF-51</span>
+          <span class="estado" style="color:#5A6475;background:#EEF0F3">○ Pendiente</span>
+        </div>
+      </div>
+      <div class="card r3">
+        <div class="card-top"><span class="hu">HU-54</span><span class="cambio">movida</span></div>
+        <div class="titulo">Exportar mis movimientos</div>
+        <div class="tarea">Llevarme o borrar mis datos</div>
+        <div class="card-bottom">
+          <span class="rf">RF-52</span>
+          <span class="estado" style="color:#5A6475;background:#EEF0F3">○ Pendiente</span>
+        </div>
+      </div>
+      <div class="card r3 nueva">
+        <div class="card-top"><span class="hu">HU-55</span><span class="cambio">nueva</span></div>
+        <div class="titulo">Eliminar mi cuenta y mis datos</div>
+        <div class="tarea">Llevarme o borrar mis datos</div>
+        <div class="card-bottom">
+          <span class="rf">RF-56</span>
+          <span class="estado" style="color:#5A6475;background:#EEF0F3">○ Pendiente</span>
+        </div>
+      </div></div>
+    </section>
+  </div>
+
+  <div class="notas">
+    <div><b>Corte del MVP.</b> El Release 1 entrega la promesa mínima defendible: registrar todo el dinero que entra y sale,
+      con la tarjeta de crédito bien contabilizada, medirse contra un tope propio y recibir el corte del mes, que es la
+      primera vez que el agente explica en lugar de solo mostrar. Sin captura asistida todavía: un registro manual correcto
+      vale más que uno automático que nadie puede corregir.</div>
+    <div><b>Qué cambió frente al Entregable 1.</b> El mapa gana una persona y un objetivo medible por release. Las historias
+      se reubican en la tarea que les corresponde: las preferencias pasan a la actividad 09, el seguimiento de la meta y los
+      resúmenes del agente tienen tarea propia, y exportar pasa a «Llevarme o borrar mis datos». Se agrega la eliminación de
+      la cuenta (HU-55). Las dos tarjetas sin requisito ya tienen RF (RF-54, RF-55), y el corte del mes entra al MVP.</div>
+  </div>
+</div>
+<script>document.title = "H=" + document.querySelector('.page').scrollHeight;</script>
+</body></html>

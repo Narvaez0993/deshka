@@ -5,7 +5,7 @@
 
 Salidas:
     historias/NN-*.md          catalogo por actividad
-    historias/README.md        indice de las 54 historias
+    historias/README.md        indice de las historias
     docs/trazabilidad.md       RU / RF -> HU
     docs/story-map.md          el mapa en texto
     .build/issues/HU-XX.md     cuerpo de cada issue
@@ -34,7 +34,7 @@ SLUG_ACTIVIDAD = {
     "06": "cuidar-mis-compromisos",
     "07": "ahorrar-con-proposito",
     "08": "entender-y-decidir",
-    "09": "administrar-mi-plan",
+    "09": "administrar-mi-cuenta-y-mi-plan",
 }
 
 REL_LABEL = {"R1": "release-1-mvp", "R2": "release-2-sin-friccion", "R3": "release-3-agente"}
@@ -118,15 +118,16 @@ def trazabilidad():
         for rf in h.rf:
             rf_map.setdefault(rf, []).append(h)
 
-    # Cobertura declarada como parcial en la matriz del numeral 1.5 del Entregable #1.
+    # Cobertura parcial vigente. En el Entregable 2, RF-54 y RF-55 cerraron la brecha de RU-18;
+    # RNF-24 volvió medible la sincronización de RU-17, pero sigue faltando la regla de conflictos.
     PARCIALES = {
         "RU-17": "falta la regla que resuelva el conflicto entre una edición local y una remota",
-        "RU-18": "faltan el requisito de recuperación de contraseña y el de proveedores externos",
     }
 
     p = ["# Trazabilidad — requisitos ↔ historias de usuario", "",
-         "Cierra el ciclo del numeral 1.5 del Entregable #1: cada requisito de usuario y "
-         "cada requisito funcional queda enlazado con las historias que lo implementan.",
+         "Cierra el ciclo del numeral 1.5 del Entregable #1, con los requisitos refinados en el "
+         "Entregable #2: cada requisito de usuario y cada requisito funcional queda enlazado con "
+         "las historias que lo implementan.",
          "",
          "## Requisitos de usuario → historias", "",
          "| RU | Historias | Cobertura |", "|---|---|---|"]
@@ -144,7 +145,7 @@ def trazabilidad():
 
     p += ["", "## Requisitos funcionales → historias", "",
           "| RF | Historias |", "|---|---|"]
-    for n in range(1, 53):
+    for n in range(1, 59):
         rf = f"RF-{n:02d}"
         hs = rf_map.get(rf, [])
         ids = ", ".join(f"`{h.id}`" for h in hs) if hs else "— *sin historia*"
@@ -182,8 +183,9 @@ def story_map():
             p.append("")
     p += ["## El corte del MVP", "",
           "El Release 1 entrega la promesa mínima defendible: registrar todo el dinero que entra "
-          "y sale, con la tarjeta de crédito bien contabilizada, y un tope propio contra el cual "
-          "medirse. Sin captura asistida todavía, porque un registro manual correcto vale más que "
+          "y sale, con la tarjeta de crédito bien contabilizada, medirse contra un tope propio y "
+          "recibir el corte del mes, que es la primera vez que el agente explica en lugar de solo "
+          "mostrar. Sin captura asistida todavía, porque un registro manual correcto vale más que "
           "uno automático que nadie puede corregir."]
     return escribir("docs/story-map.md", "\n".join(p))
 

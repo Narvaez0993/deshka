@@ -1,6 +1,6 @@
 # Catálogo de historias de usuario
 
-**54 historias** organizadas según el story map: 9 actividades del recorrido del usuario × 3 releases.
+**55 historias** organizadas según el story map: 9 actividades del recorrido del usuario × 3 releases.
 
 Cada historia trae sus criterios de aceptación en **Gherkin** y su trazabilidad hacia los requisitos del Entregable #1 (RU, RF, RN, RNF).
 
@@ -10,12 +10,11 @@ Cada historia trae sus criterios de aceptación en **Gherkin** y su trazabilidad
 
 | Historia | Título | Tarea | Release | RU | RF |
 |---|---|---|---|---|---|
-| [`HU-01`](./01-empezar-a-usar-deshka.md#hu-01--crear-mi-cuenta-con-correo-y-contraseña) | Crear mi cuenta con correo y contraseña | Crear mi cuenta | Release 1 · MVP | RU-18, RU-16 | RF-01 |
+| [`HU-01`](./01-empezar-a-usar-deshka.md#hu-01--crear-mi-cuenta-con-correo-y-contraseña) | Crear mi cuenta con correo y contraseña | Crear mi cuenta | Release 1 · MVP | RU-18, RU-16 | RF-01, RF-53 |
 | [`HU-02`](./01-empezar-a-usar-deshka.md#hu-02--entrar-y-salir-de-mi-cuenta) | Entrar y salir de mi cuenta | Entrar | Release 1 · MVP | RU-18 | RF-02 |
 | [`HU-03`](./01-empezar-a-usar-deshka.md#hu-03--onboarding-que-siembra-mis-datos-reales) | Onboarding que siembra mis datos reales | Contar qué quiero lograr | Release 1 · MVP | RU-04, RU-16 | RF-03 |
-| [`HU-04`](./01-empezar-a-usar-deshka.md#hu-04--elegir-mi-idioma-mi-tema-y-mi-moneda) | Elegir mi idioma, mi tema y mi moneda | Contar qué quiero lograr | Release 2 · Sin fricción | RU-16 | RF-04 |
-| [`HU-05`](./01-empezar-a-usar-deshka.md#hu-05--recuperar-mi-contraseña) | Recuperar mi contraseña | Entrar | Release 3 · Agente | RU-18 | — *sin RF* |
-| [`HU-06`](./01-empezar-a-usar-deshka.md#hu-06--entrar-con-google-o-con-apple) | Entrar con Google o con Apple | Entrar | Release 3 · Agente | RU-18 | — *sin RF* |
+| [`HU-05`](./01-empezar-a-usar-deshka.md#hu-05--recuperar-mi-contraseña) | Recuperar mi contraseña | Entrar | Release 3 · Agente | RU-18 | RF-54 |
+| [`HU-06`](./01-empezar-a-usar-deshka.md#hu-06--entrar-con-google-o-con-apple) | Entrar con Google o con Apple | Entrar | Release 3 · Agente | RU-18 | RF-55 |
 
 ## 02 · [Configurar mi dinero](./02-configurar-mi-dinero.md)
 
@@ -94,8 +93,8 @@ Cada historia trae sus criterios de aceptación en **Gherkin** y su trazabilidad
 |---|---|---|---|---|---|
 | [`HU-41`](./07-ahorrar-con-proposito.md#hu-41--crear-una-meta-de-ahorro) | Crear una meta de ahorro | Crear la meta | Release 2 · Sin fricción | RU-12 | RF-39 |
 | [`HU-42`](./07-ahorrar-con-proposito.md#hu-42--aportar-y-retirar-dinero-de-mi-meta) | Aportar y retirar dinero de mi meta | Mover plata a la meta | Release 2 · Sin fricción | RU-12 | RF-40 |
-| [`HU-43`](./07-ahorrar-con-proposito.md#hu-43--ver-mi-progreso-y-si-voy-a-llegar-a-tiempo) | Ver mi progreso y si voy a llegar a tiempo | Crear la meta | Release 2 · Sin fricción | RU-12 | RF-41 |
-| [`HU-44`](./07-ahorrar-con-proposito.md#hu-44--cerrar-y-archivar-una-meta) | Cerrar y archivar una meta | Crear la meta | Release 3 · Agente | RU-12 | RF-42 |
+| [`HU-43`](./07-ahorrar-con-proposito.md#hu-43--ver-mi-progreso-y-si-voy-a-llegar-a-tiempo) | Ver mi progreso y si voy a llegar a tiempo | Seguir y cerrar la meta | Release 2 · Sin fricción | RU-12 | RF-41 |
+| [`HU-44`](./07-ahorrar-con-proposito.md#hu-44--cerrar-y-archivar-una-meta) | Cerrar y archivar una meta | Seguir y cerrar la meta | Release 3 · Agente | RU-12 | RF-42 |
 
 ## 08 · [Entender y decidir](./08-entender-y-decidir.md)
 
@@ -104,19 +103,21 @@ Cada historia trae sus criterios de aceptación en **Gherkin** y su trazabilidad
 | Historia | Título | Tarea | Release | RU | RF |
 |---|---|---|---|---|---|
 | [`HU-45`](./08-entender-y-decidir.md#hu-45--recibir-avisos-calculados-sobre-mi-plata) | Recibir avisos calculados sobre mi plata | Recibir avisos | Release 2 · Sin fricción | RU-13, RU-20 | RF-43 |
-| [`HU-46`](./08-entender-y-decidir.md#hu-46--preguntarle-al-agente-en-mis-palabras) | Preguntarle al agente en mis palabras | Conversar y revisar | Release 2 · Sin fricción | RU-14 | RF-44 |
-| [`HU-47`](./08-entender-y-decidir.md#hu-47--recibir-el-corte-de-mi-mes) | Recibir el corte de mi mes | Recibir avisos | Release 3 · Agente | RU-13 | RF-45 |
-| [`HU-48`](./08-entender-y-decidir.md#hu-48--recibir-mi-revisión-semanal) | Recibir mi revisión semanal | Conversar y revisar | Release 3 · Agente | RU-13 | RF-46 |
-| [`HU-49`](./08-entender-y-decidir.md#hu-49--aplicar-una-jugada-que-el-agente-me-sugirió) | Aplicar una jugada que el agente me sugirió | Conversar y revisar | Release 3 · Agente | RU-13 | RF-47 |
-| [`HU-50`](./08-entender-y-decidir.md#hu-50--volver-a-leer-lo-que-el-agente-ya-me-entregó) | Volver a leer lo que el agente ya me entregó | Recibir avisos | Release 3 · Agente | RU-13 | RF-48 |
+| [`HU-46`](./08-entender-y-decidir.md#hu-46--preguntarle-al-agente-en-mis-palabras) | Preguntarle al agente en mis palabras | Conversar con el agente | Release 2 · Sin fricción | RU-14 | RF-44, RF-57 |
+| [`HU-47`](./08-entender-y-decidir.md#hu-47--recibir-el-corte-de-mi-mes) | Recibir el corte de mi mes | Recibir mis resúmenes | Release 1 · MVP | RU-13 | RF-45, RF-57 |
+| [`HU-48`](./08-entender-y-decidir.md#hu-48--recibir-mi-revisión-semanal) | Recibir mi revisión semanal | Recibir mis resúmenes | Release 3 · Agente | RU-13 | RF-46 |
+| [`HU-49`](./08-entender-y-decidir.md#hu-49--aplicar-una-jugada-que-el-agente-me-sugirió) | Aplicar una jugada que el agente me sugirió | Aplicar lo que propone | Release 3 · Agente | RU-13 | RF-47 |
+| [`HU-50`](./08-entender-y-decidir.md#hu-50--volver-a-leer-lo-que-el-agente-ya-me-entregó) | Volver a leer lo que el agente ya me entregó | Recibir mis resúmenes | Release 3 · Agente | RU-13 | RF-48 |
 
-## 09 · [Administrar mi plan](./09-administrar-mi-plan.md)
+## 09 · [Administrar mi cuenta y mi plan](./09-administrar-mi-cuenta-y-mi-plan.md)
 
-*El usuario sabe qué consume, qué incluye su plan y cómo mejorarlo.*
+*El usuario ajusta su cuenta, sabe qué consume y decide qué hacer con sus datos.*
 
 | Historia | Título | Tarea | Release | RU | RF |
 |---|---|---|---|---|---|
-| [`HU-51`](./09-administrar-mi-plan.md#hu-51--ver-cuánto-llevo-consumido-de-mi-plan) | Ver cuánto llevo consumido de mi plan | Ver mi consumo | Release 2 · Sin fricción | RU-19 | RF-49 |
-| [`HU-52`](./09-administrar-mi-plan.md#hu-52--seguir-registrando-cuando-se-me-acaba-la-cuota) | Seguir registrando cuando se me acaba la cuota | Ver mi consumo | Release 2 · Sin fricción | RU-19, RU-01 | RF-50 |
-| [`HU-53`](./09-administrar-mi-plan.md#hu-53--comprar-el-plan-de-pago) | Comprar el plan de pago | Mejorar el plan | Release 3 · Agente | RU-19 | RF-51 |
-| [`HU-54`](./09-administrar-mi-plan.md#hu-54--exportar-mis-movimientos) | Exportar mis movimientos | Mejorar el plan | Release 3 · Agente | RU-19, RU-15 | RF-52 |
+| [`HU-04`](./09-administrar-mi-cuenta-y-mi-plan.md#hu-04--ajustar-mi-perfil-y-mis-preferencias) | Ajustar mi perfil y mis preferencias | Ajustar mi cuenta | Release 2 · Sin fricción | RU-16 | RF-04 |
+| [`HU-51`](./09-administrar-mi-cuenta-y-mi-plan.md#hu-51--ver-cuánto-llevo-consumido-de-mi-plan) | Ver cuánto llevo consumido de mi plan | Ver mi consumo | Release 2 · Sin fricción | RU-19 | RF-49, RF-58 |
+| [`HU-52`](./09-administrar-mi-cuenta-y-mi-plan.md#hu-52--seguir-registrando-cuando-se-me-acaba-la-cuota) | Seguir registrando cuando se me acaba la cuota | Ver mi consumo | Release 2 · Sin fricción | RU-19, RU-01 | RF-50 |
+| [`HU-53`](./09-administrar-mi-cuenta-y-mi-plan.md#hu-53--comprar-el-plan-de-pago) | Comprar el plan de pago | Mejorar el plan | Release 3 · Agente | RU-19 | RF-51 |
+| [`HU-54`](./09-administrar-mi-cuenta-y-mi-plan.md#hu-54--exportar-mis-movimientos) | Exportar mis movimientos | Llevarme o borrar mis datos | Release 3 · Agente | RU-19, RU-15 | RF-52 |
+| [`HU-55`](./09-administrar-mi-cuenta-y-mi-plan.md#hu-55--eliminar-mi-cuenta-y-mis-datos) | Eliminar mi cuenta y mis datos | Llevarme o borrar mis datos | Release 3 · Agente | RU-18 | RF-56 |

@@ -135,7 +135,7 @@ HU = [
         rol="usuario",
         quiero="dictar lo que gasté y que el sistema arme el movimiento",
         para="no abandonar el registro por el esfuerzo que exige la digitación",
-        ru=["RU-01"], rf=["RF-15"], rn=["RN-19", "RN-23"], rnf=["RNF-01", "RNF-11"],
+        ru=["RU-01"], rf=["RF-15"], rn=["RN-19"], rnf=["RNF-01", "RNF-11", "RNF-23"],
         escenarios=[
             ("Dictado interpretado", [
                 "Dado que tengo la cuenta «Nómina» y la tarjeta «Visa»",
@@ -163,7 +163,7 @@ HU = [
         rol="usuario",
         quiero="escribir una frase en lenguaje natural y que el sistema derive los campos del movimiento",
         para="registrar sin diligenciar un formulario campo por campo",
-        ru=["RU-01"], rf=["RF-16"], rn=["RN-19", "RN-23"], rnf=["RNF-11"],
+        ru=["RU-01"], rf=["RF-16"], rn=["RN-19"], rnf=["RNF-11", "RNF-23"],
         escenarios=[
             ("Frase interpretada", [
                 "Cuando escribo «12.000 de taxi ayer»",
@@ -247,7 +247,7 @@ HU = [
         rol="usuario",
         quiero="fotografiar un recibo y que el sistema extraiga los datos del movimiento",
         para="registrar lo que compré sin transcribir el papel",
-        ru=["RU-01"], rf=["RF-17"], rn=["RN-19", "RN-23"], rnf=["RNF-01", "RNF-11"],
+        ru=["RU-01"], rf=["RF-17"], rn=["RN-19"], rnf=["RNF-01", "RNF-11", "RNF-23"],
         escenarios=[
             ("Recibo legible", [
                 "Cuando fotografío un recibo con total 87.500 del comercio «Farmatodo»",
@@ -273,7 +273,7 @@ HU = [
         rol="usuario sin conexión a internet",
         quiero="registrar un movimiento y que se sincronice cuando vuelva la señal",
         para="no perder el registro justo cuando estoy fuera de cobertura",
-        ru=["RU-17"], rf=["RF-22"], rn=[], rnf=["RNF-16"],
+        ru=["RU-17"], rf=["RF-22"], rn=[], rnf=["RNF-16", "RNF-24"],
         escenarios=[
             ("Registro sin conexión", [
                 "Dado que mi dispositivo no tiene conexión",
@@ -293,6 +293,6 @@ HU = [
                 "Entonces el gasto ya está descontado",
             ]),
         ],
-        nota="La resolución de conflictos entre una edición local y una remota sobre el mismo movimiento aún no tiene regla de negocio definida: es la brecha que la matriz marca como cobertura **parcial** en RU-17.",
+        nota="RNF-24 fija cuándo y cómo se sincroniza lo registrado sin conexión. La resolución de conflictos entre una edición local y una remota sobre el mismo movimiento aún no tiene regla de negocio: por eso RU-17 sigue con cobertura **parcial**.",
     ),
 ]

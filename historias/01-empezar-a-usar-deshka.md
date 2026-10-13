@@ -6,12 +6,11 @@
 
 | Historia | Título | Release | RF |
 |---|---|---|---|
-| `HU-01` | Crear mi cuenta con correo y contraseña | Release 1 · MVP | RF-01 |
+| `HU-01` | Crear mi cuenta con correo y contraseña | Release 1 · MVP | RF-01, RF-53 |
 | `HU-02` | Entrar y salir de mi cuenta | Release 1 · MVP | RF-02 |
 | `HU-03` | Onboarding que siembra mis datos reales | Release 1 · MVP | RF-03 |
-| `HU-04` | Elegir mi idioma, mi tema y mi moneda | Release 2 · Sin fricción | RF-04 |
-| `HU-05` | Recuperar mi contraseña | Release 3 · Agente | — *sin RF* |
-| `HU-06` | Entrar con Google o con Apple | Release 3 · Agente | — *sin RF* |
+| `HU-05` | Recuperar mi contraseña | Release 3 · Agente | RF-54 |
+| `HU-06` | Entrar con Google o con Apple | Release 3 · Agente | RF-55 |
 
 ---
 
@@ -26,7 +25,7 @@
 | **Actividad** | 01 · Empezar a usar Deshka — *Crear mi cuenta* |
 | **Release** | Release 1 · MVP — Registrar y entender lo básico |
 | **Requisitos de usuario** | RU-18, RU-16 |
-| **Requisitos funcionales** | RF-01 |
+| **Requisitos funcionales** | RF-01, RF-53 |
 | **Reglas de negocio** | RN-18 |
 | **Requisitos no funcionales** | RNF-06, RNF-07 |
 
@@ -35,13 +34,19 @@
 ```gherkin
 Característica: Empezar a usar Deshka — Crear mi cuenta con correo y contraseña
 
-  Escenario: Registro con idioma y moneda propuestos por la región
+  Escenario: Registro con idioma y moneda tomados de la región
     Dado que soy un visitante sin cuenta
     Y mi dispositivo está configurado en la región «Colombia»
     Cuando envío el formulario de registro con un correo válido y una contraseña de al menos ocho caracteres
     Entonces el sistema crea mi cuenta
-    Y me propone el idioma «Español» y la moneda «COP»
-    Y me pide confirmarlos antes de continuar
+    Y toma el idioma «Español» y la moneda «COP» de la región del dispositivo
+    Y me deja cambiar la moneda en la configuración inicial
+
+  Escenario: Verificación del correo
+    Dado que acabo de crear mi cuenta
+    Cuando ingreso el código de verificación que recibí en mi correo
+    Entonces mi cuenta queda verificada
+    Y puedo iniciar sesión, cosa que el sistema no permite mientras el correo no esté verificado
 
   Escenario: Correo ya registrado
     Dado que ya existe una cuenta con el correo «ana@correo.com»
@@ -146,47 +151,6 @@ Característica: Empezar a usar Deshka — Onboarding que siembra mis datos real
 
 ---
 
-### HU-04 · Elegir mi idioma, mi tema y mi moneda
-
-> **Como** usuario,  
-> **quiero** cambiar el idioma y el tema cuando quiera, y fijar mi moneda,  
-> **para** entender la información sin traducirla mentalmente.
-
-| | |
-|---|---|
-| **Actividad** | 01 · Empezar a usar Deshka — *Contar qué quiero lograr* |
-| **Release** | Release 2 · Sin fricción — Captura asistida y control del gasto |
-| **Requisitos de usuario** | RU-16 |
-| **Requisitos funcionales** | RF-04 |
-| **Reglas de negocio** | RN-18 |
-| **Requisitos no funcionales** | RNF-14, RNF-15 |
-
-**Criterios de aceptación**
-
-```gherkin
-Característica: Empezar a usar Deshka — Elegir mi idioma, mi tema y mi moneda
-
-  Escenario: Cambio de idioma
-    Dado que uso la aplicación en español
-    Cuando cambio el idioma a inglés
-    Entonces la totalidad de los textos de la interfaz pasa a inglés
-    Y ninguna pantalla conserva texto en español
-
-  Escenario: Cambio de moneda permitido
-    Dado que no tengo ningún movimiento registrado
-    Cuando cambio mi moneda de «COP» a «USD»
-    Entonces el sistema acepta el cambio
-    Y todos los montos se presentan con el símbolo y los decimales de «USD»
-
-  Escenario: Cambio de moneda rechazado
-    Dado que tengo al menos un movimiento registrado
-    Cuando intento cambiar mi moneda
-    Entonces el sistema rechaza el cambio
-    Y me explica que la moneda solo puede cambiarse mientras no existan movimientos
-```
-
----
-
 ### HU-05 · Recuperar mi contraseña
 
 > **Como** usuario que olvidó su contraseña,  
@@ -198,7 +162,7 @@ Característica: Empezar a usar Deshka — Elegir mi idioma, mi tema y mi moneda
 | **Actividad** | 01 · Empezar a usar Deshka — *Entrar* |
 | **Release** | Release 3 · Agente — El sistema trabaja por el usuario |
 | **Requisitos de usuario** | RU-18 |
-| **Requisitos funcionales** | — (brecha detectada en la matriz) |
+| **Requisitos funcionales** | RF-54 |
 | **Reglas de negocio** | — |
 | **Requisitos no funcionales** | RNF-06, RNF-07 |
 
@@ -227,8 +191,6 @@ Característica: Empezar a usar Deshka — Recuperar mi contraseña
     Y me ofrece solicitar uno nuevo
 ```
 
-> **Nota.** Historia sin requisito funcional asignado: es la brecha que la matriz de trazabilidad marca como cobertura **parcial** en RU-18.
-
 ---
 
 ### HU-06 · Entrar con Google o con Apple
@@ -242,7 +204,7 @@ Característica: Empezar a usar Deshka — Recuperar mi contraseña
 | **Actividad** | 01 · Empezar a usar Deshka — *Entrar* |
 | **Release** | Release 3 · Agente — El sistema trabaja por el usuario |
 | **Requisitos de usuario** | RU-18 |
-| **Requisitos funcionales** | — (brecha detectada en la matriz) |
+| **Requisitos funcionales** | RF-55 |
 | **Reglas de negocio** | — |
 | **Requisitos no funcionales** | RNF-07 |
 
@@ -263,7 +225,5 @@ Característica: Empezar a usar Deshka — Entrar con Google o con Apple
     Entonces el sistema vincula el proveedor a mi cuenta existente
     Y no crea una cuenta duplicada
 ```
-
-> **Nota.** Historia sin requisito funcional asignado: es la segunda brecha declarada en RU-18.
 
 ---

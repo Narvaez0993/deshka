@@ -70,7 +70,7 @@ Característica: Revisar mi día a día — Consultar mi historial con filtros
 | **Release** | Release 1 · MVP — Registrar y entender lo básico |
 | **Requisitos de usuario** | RU-15, RU-02 |
 | **Requisitos funcionales** | RF-19 |
-| **Reglas de negocio** | RN-27 |
+| **Reglas de negocio** | — |
 | **Requisitos no funcionales** | RNF-09 |
 
 **Criterios de aceptación**

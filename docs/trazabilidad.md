@@ -1,6 +1,6 @@
 # Trazabilidad — requisitos ↔ historias de usuario
 
-Cierra el ciclo del numeral 1.5 del Entregable #1: cada requisito de usuario y cada requisito funcional queda enlazado con las historias que lo implementan.
+Cierra el ciclo del numeral 1.5 del Entregable #1, con los requisitos refinados en el Entregable #2: cada requisito de usuario y cada requisito funcional queda enlazado con las historias que lo implementan.
 
 ## Requisitos de usuario → historias
 
@@ -23,7 +23,7 @@ Cierra el ciclo del numeral 1.5 del Entregable #1: cada requisito de usuario y c
 | RU-15 | `HU-23`, `HU-24`, `HU-54` | Completa |
 | RU-16 | `HU-01`, `HU-03`, `HU-04` | Completa |
 | RU-17 | `HU-22` | Parcial — falta la regla que resuelva el conflicto entre una edición local y una remota |
-| RU-18 | `HU-01`, `HU-02`, `HU-05`, `HU-06` | Parcial — faltan el requisito de recuperación de contraseña y el de proveedores externos |
+| RU-18 | `HU-01`, `HU-02`, `HU-05`, `HU-06`, `HU-55` | Completa |
 | RU-19 | `HU-12`, `HU-51`, `HU-52`, `HU-53`, `HU-54` | Completa |
 | RU-20 | `HU-25`, `HU-45` | Completa |
 
@@ -83,6 +83,12 @@ Cierra el ciclo del numeral 1.5 del Entregable #1: cada requisito de usuario y c
 | RF-50 | `HU-52` |
 | RF-51 | `HU-53` |
 | RF-52 | `HU-54` |
+| RF-53 | `HU-01` |
+| RF-54 | `HU-05` |
+| RF-55 | `HU-06` |
+| RF-56 | `HU-55` |
+| RF-57 | `HU-46`, `HU-47` |
+| RF-58 | `HU-51` |
 
 ## Historias sin requisito funcional
 
@@ -90,5 +96,3 @@ Aparecen en el story map porque el usuario las espera, pero todavía no tienen u
 
 | Historia | Título | RU afectado |
 |---|---|---|
-| `HU-05` | Recuperar mi contraseña | RU-18 |
-| `HU-06` | Entrar con Google o con Apple | RU-18 |

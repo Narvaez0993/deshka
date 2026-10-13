@@ -26,7 +26,7 @@ Un issue por historia, con vistas por **release**, por **actividad** del recorri
 | | |
 |---|---|
 | 🗺️ [**Story map**](./docs/story-map.md) | El recorrido del usuario y el corte del MVP |
-| 📖 [**Catálogo de historias**](./historias/README.md) | Las 54 historias con sus criterios de aceptación |
+| 📖 [**Catálogo de historias**](./historias/README.md) | Las 55 historias con sus criterios de aceptación |
 | 🔗 [**Trazabilidad**](./docs/trazabilidad.md) | RU y RF ↔ historias, y las brechas detectadas |
 | 🧩 [**Diagrama de clases**](./docs/diagrama-de-clases.md) | La estructura del sistema: entidades, operaciones y relaciones |
 | 🛠️ [**Generador**](./tools/) | Fuente única desde la que se producen el catálogo y los issues |
@@ -39,7 +39,7 @@ issue.
 
 | Actividad | Historias | |
 |---|---|---|
-| 01 · [Empezar a usar Deshka](./historias/01-empezar-a-usar-deshka.md) | 6 | El visitante se vuelve usuario y le cuenta al sistema qué quiere lograr |
+| 01 · [Empezar a usar Deshka](./historias/01-empezar-a-usar-deshka.md) | 5 | El visitante se vuelve usuario y le cuenta al sistema qué quiere lograr |
 | 02 · [Configurar mi dinero](./historias/02-configurar-mi-dinero.md) | 6 | Declara de dónde sale y a dónde entra su plata |
 | 03 · [Registrar lo que pasa](./historias/03-registrar-lo-que-pasa.md) | 10 | Deja constancia de cada movimiento con el menor esfuerzo posible |
 | 04 · [Revisar mi día a día](./historias/04-revisar-mi-dia-a-dia.md) | 5 | Mira cómo va y mantiene el historial fiel a la realidad |
@@ -47,14 +47,14 @@ issue.
 | 06 · [Cuidar mis compromisos](./historias/06-cuidar-mis-compromisos.md) | 7 | No pierde de vista lo que se repite ni lo que debe |
 | 07 · [Ahorrar con propósito](./historias/07-ahorrar-con-proposito.md) | 4 | Aparta plata para algo concreto y ve si va a llegar |
 | 08 · [Entender y decidir](./historias/08-entender-y-decidir.md) | 6 | El agente le explica qué pasó y qué hacer |
-| 09 · [Administrar mi plan](./historias/09-administrar-mi-plan.md) | 4 | Sabe qué consume, qué incluye su plan y cómo mejorarlo |
+| 09 · [Administrar mi cuenta y mi plan](./historias/09-administrar-mi-cuenta-y-mi-plan.md) | 6 | Ajusta su cuenta, sabe qué consume y decide qué hacer con sus datos |
 
 | Release | Historias | Escenarios | Qué entrega |
 |---|---|---|---|
-| 🟢 **Release 1 · MVP** | 16 | 51 | Registrar y entender lo básico |
-| 🟡 **Release 2 · Sin fricción** | 23 | 74 | Captura asistida y control del gasto |
-| 🟣 **Release 3 · Agente** | 15 | 47 | El sistema trabaja por el usuario |
-| | **54** | **172** | |
+| 🟢 **Release 1 · MVP** | 17 | 57 | Registrar y entender lo básico |
+| 🟡 **Release 2 · Sin fricción** | 23 | 75 | Captura asistida y control del gasto |
+| 🟣 **Release 3 · Agente** | 15 | 45 | El sistema trabaja por el usuario |
+| | **55** | **177** | |
 
 ## Cómo se escribe una historia aquí
 

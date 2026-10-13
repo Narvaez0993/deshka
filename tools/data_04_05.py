@@ -43,7 +43,7 @@ HU = [
         rol="usuario",
         quiero="corregir o borrar cualquier movimiento que registré",
         para="mantener el historial fiel a lo que realmente ocurrió",
-        ru=["RU-15", "RU-02"], rf=["RF-19"], rn=["RN-27"], rnf=["RNF-09"],
+        ru=["RU-15", "RU-02"], rf=["RF-19"], rn=[], rnf=["RNF-09"],
         escenarios=[
             ("Edición del monto de un gasto", [
                 "Dado que registré un gasto de 50.000 con cargo a «Nómina», que quedó en 750.000",
@@ -189,7 +189,7 @@ HU = [
         rol="usuario",
         quiero="ver cuánto puedo gastar diariamente en lo que resta del mes",
         para="no pasarme del tope que definí",
-        ru=["RU-09"], rf=["RF-24"], rn=["RN-04", "RN-07"], rnf=["RNF-02"],
+        ru=["RU-09"], rf=["RF-24"], rn=["RN-04", "RN-07", "RN-28"], rnf=["RNF-02"],
         escenarios=[
             ("Cálculo del techo diario", [
                 "Dado que tengo un techo de 3.000.000, llevo 1.500.000 gastados y quedan diez días de mes contando hoy",
