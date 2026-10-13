@@ -34,11 +34,11 @@ HU = [
     Historia(
         id="HU-46",
         titulo="Preguntarle al agente en mis palabras",
-        actividad="08", tarea="Conversar y revisar", release="R2",
+        actividad="08", tarea="Conversar con el agente", release="R2",
         rol="usuario",
         quiero="conversar con la aplicación y preguntarle por mis gastos, topes, metas, deudas y suscripciones",
         para="resolver dudas puntuales sin navegar entre pantallas",
-        ru=["RU-14"], rf=["RF-44"], rn=["RN-03", "RN-19", "RN-23"], rnf=["RNF-03", "RNF-05"],
+        ru=["RU-14"], rf=["RF-44", "RF-57"], rn=["RN-03", "RN-19"], rnf=["RNF-03", "RNF-23"],
         escenarios=[
             ("Pregunta respondida con datos propios", [
                 "Dado que este mes gasté 320.000 en «Transporte»",
@@ -72,11 +72,11 @@ HU = [
     Historia(
         id="HU-47",
         titulo="Recibir el corte de mi mes",
-        actividad="08", tarea="Recibir avisos", release="R3",
+        actividad="08", tarea="Recibir mis resúmenes", release="R1",
         rol="usuario",
         quiero="recibir al comenzar el mes un resumen narrado del mes anterior",
         para="entender qué pasó con mi plata sin interpretar gráficas",
-        ru=["RU-13"], rf=["RF-45"], rn=["RN-21", "RN-23", "RN-24"], rnf=["RNF-05", "RNF-10", "RNF-21"],
+        ru=["RU-13"], rf=["RF-45", "RF-57"], rn=["RN-21", "RN-24"], rnf=["RNF-10", "RNF-21", "RNF-23"],
         escenarios=[
             ("Composición del cierre mensual", [
                 "Dado que el mes anterior registré más de tres movimientos",
@@ -110,11 +110,11 @@ HU = [
     Historia(
         id="HU-48",
         titulo="Recibir mi revisión semanal",
-        actividad="08", tarea="Conversar y revisar", release="R3",
+        actividad="08", tarea="Recibir mis resúmenes", release="R3",
         rol="usuario",
         quiero="recibir cada semana un diagnóstico, hasta tres acciones sugeridas y el resultado de las de la semana pasada",
         para="corregir el rumbo con algo concreto y saber si lo anterior sirvió",
-        ru=["RU-13"], rf=["RF-46"], rn=["RN-21", "RN-22", "RN-23"], rnf=["RNF-10", "RNF-21"],
+        ru=["RU-13"], rf=["RF-46"], rn=["RN-21", "RN-22"], rnf=["RNF-10", "RNF-21", "RNF-23"],
         escenarios=[
             ("Entrega semanal", [
                 "Dado que cerró una semana con movimientos registrados",
@@ -123,7 +123,7 @@ HU = [
                 "Y hasta tres acciones sugeridas",
             ]),
             ("Rendición de cuentas de la semana anterior", [
-                "Dado que la semana pasada acepté la acción «tope de 200.000 en Restaurantes»",
+                "Dado que la semana pasada acepté la acción «tope de 200.000 en Comida fuera»",
                 "Cuando recibo la revisión de esta semana",
                 "Entonces incluye el resultado de esa acción",
             ]),
@@ -137,14 +137,14 @@ HU = [
     Historia(
         id="HU-49",
         titulo="Aplicar una jugada que el agente me sugirió",
-        actividad="08", tarea="Conversar y revisar", release="R3",
+        actividad="08", tarea="Aplicar lo que propone", release="R3",
         rol="usuario",
         quiero="aceptar una acción sugerida y que se convierta en un tope o en un aporte real",
         para="que el consejo se materialice sin que yo lo tenga que configurar",
         ru=["RU-13"], rf=["RF-47"], rn=["RN-22"], rnf=["RNF-12"],
         escenarios=[
             ("Acción que crea un tope", [
-                "Dado que el agente sugiere un tope de 200.000 en «Restaurantes»",
+                "Dado que el agente sugiere un tope de 200.000 en «Comida fuera»",
                 "Cuando la aplico",
                 "Entonces el tope queda creado con ese monto",
                 "Y la acción aparece como aplicada",
@@ -171,7 +171,7 @@ HU = [
     Historia(
         id="HU-50",
         titulo="Volver a leer lo que el agente ya me entregó",
-        actividad="08", tarea="Recibir avisos", release="R3",
+        actividad="08", tarea="Recibir mis resúmenes", release="R3",
         rol="usuario",
         quiero="que los cierres del mes y las revisiones queden archivados aunque los descarte del feed",
         para="poder releerlos cuando quiera",
@@ -200,7 +200,7 @@ HU = [
         rol="usuario",
         quiero="ver mis dos contadores mensuales de uso de inteligencia artificial",
         para="saber en qué punto estoy antes de quedarme sin cuota",
-        ru=["RU-19"], rf=["RF-49"], rn=["RN-19", "RN-20", "RN-21"], rnf=["RNF-22"],
+        ru=["RU-19"], rf=["RF-49", "RF-58"], rn=["RN-19", "RN-20", "RN-21"], rnf=[],
         escenarios=[
             ("Dos contadores independientes", [
                 "Dado que estoy en el plan gratuito",
@@ -278,7 +278,7 @@ HU = [
     Historia(
         id="HU-54",
         titulo="Exportar mis movimientos",
-        actividad="09", tarea="Mejorar el plan", release="R3",
+        actividad="09", tarea="Llevarme o borrar mis datos", release="R3",
         rol="usuario",
         quiero="descargar mis movimientos en un archivo",
         para="conservar mi información por fuera de la aplicación",
@@ -304,6 +304,33 @@ HU = [
                 "Dado que mi moneda es «COP»",
                 "Cuando abro el archivo exportado",
                 "Entonces los montos aparecen en la unidad menor de la moneda con su formato regional",
+            ]),
+        ],
+    ),
+    Historia(
+        id="HU-55",
+        titulo="Eliminar mi cuenta y mis datos",
+        actividad="09", tarea="Llevarme o borrar mis datos", release="R3",
+        rol="usuario",
+        quiero="eliminar mi cuenta y todos los datos asociados",
+        para="que nada mío quede guardado cuando deje de usar la aplicación",
+        ru=["RU-18"], rf=["RF-56"], rn=[], rnf=["RNF-08", "RNF-20"],
+        escenarios=[
+            ("Solicitud de eliminación", [
+                "Dado que tengo una cuenta con movimientos, metas y deudas registrados",
+                "Cuando solicito eliminar mi cuenta y confirmo con mi contraseña",
+                "Entonces el sistema cierra mi sesión en todos los dispositivos",
+                "Y programa la eliminación de la cuenta y de todos sus datos",
+            ]),
+            ("Plazo de eliminación", [
+                "Dado que solicité eliminar mi cuenta",
+                "Cuando pasan treinta días",
+                "Entonces ningún dato de mi cuenta permanece almacenado",
+            ]),
+            ("Exportar antes de eliminar", [
+                "Dado que voy a eliminar mi cuenta",
+                "Cuando el sistema me pide confirmar",
+                "Entonces me ofrece exportar mis movimientos antes de continuar",
             ]),
         ],
     ),

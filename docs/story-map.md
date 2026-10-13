@@ -8,7 +8,7 @@ El recorrido del usuario de izquierda a derecha; hacia abajo, las funcionalidade
 
 **01 · Empezar a usar Deshka**
 
-- `HU-01` Crear mi cuenta con correo y contraseña — *RF-01*
+- `HU-01` Crear mi cuenta con correo y contraseña — *RF-01, RF-53*
 - `HU-02` Entrar y salir de mi cuenta — *RF-02*
 - `HU-03` Onboarding que siembra mis datos reales — *RF-03*
 
@@ -37,11 +37,11 @@ El recorrido del usuario de izquierda a derecha; hacia abajo, las funcionalidade
 - `HU-28` Ponerme un techo global de gasto — *RF-23*
 - `HU-29` Saber cuánto puedo gastar por día — *RF-24*
 
+**08 · Entender y decidir**
+
+- `HU-47` Recibir el corte de mi mes — *RF-45, RF-57*
+
 ## Release 2 · Sin fricción — Captura asistida y control del gasto
-
-**01 · Empezar a usar Deshka**
-
-- `HU-04` Elegir mi idioma, mi tema y mi moneda — *RF-04*
 
 **02 · Configurar mi dinero**
 
@@ -82,19 +82,20 @@ El recorrido del usuario de izquierda a derecha; hacia abajo, las funcionalidade
 **08 · Entender y decidir**
 
 - `HU-45` Recibir avisos calculados sobre mi plata — *RF-43*
-- `HU-46` Preguntarle al agente en mis palabras — *RF-44*
+- `HU-46` Preguntarle al agente en mis palabras — *RF-44, RF-57*
 
-**09 · Administrar mi plan**
+**09 · Administrar mi cuenta y mi plan**
 
-- `HU-51` Ver cuánto llevo consumido de mi plan — *RF-49*
+- `HU-04` Ajustar mi perfil y mis preferencias — *RF-04*
+- `HU-51` Ver cuánto llevo consumido de mi plan — *RF-49, RF-58*
 - `HU-52` Seguir registrando cuando se me acaba la cuota — *RF-50*
 
 ## Release 3 · Agente — El sistema trabaja por el usuario
 
 **01 · Empezar a usar Deshka**
 
-- `HU-05` Recuperar mi contraseña — *sin RF definido*
-- `HU-06` Entrar con Google o con Apple — *sin RF definido*
+- `HU-05` Recuperar mi contraseña — *RF-54*
+- `HU-06` Entrar con Google o con Apple — *RF-55*
 
 **03 · Registrar lo que pasa**
 
@@ -117,16 +118,16 @@ El recorrido del usuario de izquierda a derecha; hacia abajo, las funcionalidade
 
 **08 · Entender y decidir**
 
-- `HU-47` Recibir el corte de mi mes — *RF-45*
 - `HU-48` Recibir mi revisión semanal — *RF-46*
 - `HU-49` Aplicar una jugada que el agente me sugirió — *RF-47*
 - `HU-50` Volver a leer lo que el agente ya me entregó — *RF-48*
 
-**09 · Administrar mi plan**
+**09 · Administrar mi cuenta y mi plan**
 
 - `HU-53` Comprar el plan de pago — *RF-51*
 - `HU-54` Exportar mis movimientos — *RF-52*
+- `HU-55` Eliminar mi cuenta y mis datos — *RF-56*
 
 ## El corte del MVP
 
-El Release 1 entrega la promesa mínima defendible: registrar todo el dinero que entra y sale, con la tarjeta de crédito bien contabilizada, y un tope propio contra el cual medirse. Sin captura asistida todavía, porque un registro manual correcto vale más que uno automático que nadie puede corregir.
+El Release 1 entrega la promesa mínima defendible: registrar todo el dinero que entra y sale, con la tarjeta de crédito bien contabilizada, medirse contra un tope propio y recibir el corte del mes, que es la primera vez que el agente explica en lugar de solo mostrar. Sin captura asistida todavía, porque un registro manual correcto vale más que uno automático que nadie puede corregir.

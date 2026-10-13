@@ -16,7 +16,7 @@ ACTIVIDADES = {
     "06": ("Cuidar mis compromisos", "El usuario no pierde de vista lo que se repite ni lo que debe."),
     "07": ("Ahorrar con propósito", "El usuario aparta plata para algo concreto y ve si va a llegar."),
     "08": ("Entender y decidir", "El agente le explica al usuario qué pasó y qué hacer."),
-    "09": ("Administrar mi plan", "El usuario sabe qué consume, qué incluye su plan y cómo mejorarlo."),
+    "09": ("Administrar mi cuenta y mi plan", "El usuario ajusta su cuenta, sabe qué consume y decide qué hacer con sus datos."),
 }
 
 RELEASES = {

@@ -11,15 +11,21 @@ HU = [
         rol="visitante",
         quiero="crear una cuenta con mi correo y una contraseña",
         para="que solo yo pueda ver y modificar mi información financiera",
-        ru=["RU-18", "RU-16"], rf=["RF-01"], rn=["RN-18"], rnf=["RNF-06", "RNF-07"],
+        ru=["RU-18", "RU-16"], rf=["RF-01", "RF-53"], rn=["RN-18"], rnf=["RNF-06", "RNF-07"],
         escenarios=[
-            ("Registro con idioma y moneda propuestos por la región", [
+            ("Registro con idioma y moneda tomados de la región", [
                 "Dado que soy un visitante sin cuenta",
                 "Y mi dispositivo está configurado en la región «Colombia»",
                 "Cuando envío el formulario de registro con un correo válido y una contraseña de al menos ocho caracteres",
                 "Entonces el sistema crea mi cuenta",
-                "Y me propone el idioma «Español» y la moneda «COP»",
-                "Y me pide confirmarlos antes de continuar",
+                "Y toma el idioma «Español» y la moneda «COP» de la región del dispositivo",
+                "Y me deja cambiar la moneda en la configuración inicial",
+            ]),
+            ("Verificación del correo", [
+                "Dado que acabo de crear mi cuenta",
+                "Cuando ingreso el código de verificación que recibí en mi correo",
+                "Entonces mi cuenta queda verificada",
+                "Y puedo iniciar sesión, cosa que el sistema no permite mientras el correo no esté verificado",
             ]),
             ("Correo ya registrado", [
                 "Dado que ya existe una cuenta con el correo «ana@correo.com»",
@@ -101,13 +107,19 @@ HU = [
     ),
     Historia(
         id="HU-04",
-        titulo="Elegir mi idioma, mi tema y mi moneda",
-        actividad="01", tarea="Contar qué quiero lograr", release="R2",
+        titulo="Ajustar mi perfil y mis preferencias",
+        actividad="09", tarea="Ajustar mi cuenta", release="R2",
         rol="usuario",
-        quiero="cambiar el idioma y el tema cuando quiera, y fijar mi moneda",
-        para="entender la información sin traducirla mentalmente",
+        quiero="cambiar mi nombre, mi objetivo, el idioma y el tema cuando quiera, y fijar mi moneda",
+        para="que la aplicación siga lo que hoy quiero lograr y me hable en mi idioma",
         ru=["RU-16"], rf=["RF-04"], rn=["RN-18"], rnf=["RNF-14", "RNF-15"],
         escenarios=[
+            ("Cambio del objetivo", [
+                "Dado que en el onboarding declaré el objetivo «Controlar mis gastos»",
+                "Cuando lo cambio a «Ahorrar para algo» desde mi perfil",
+                "Entonces el sistema guarda el nuevo objetivo en mi cuenta",
+                "Y la pantalla de inicio pasa a mostrar primero el avance de mis metas",
+            ]),
             ("Cambio de idioma", [
                 "Dado que uso la aplicación en español",
                 "Cuando cambio el idioma a inglés",
@@ -135,7 +147,7 @@ HU = [
         rol="usuario que olvidó su contraseña",
         quiero="restablecerla desde mi correo",
         para="recuperar el acceso a mi información sin perder mis datos",
-        ru=["RU-18"], rf=[], rn=[], rnf=["RNF-06", "RNF-07"],
+        ru=["RU-18"], rf=["RF-54"], rn=[], rnf=["RNF-06", "RNF-07"],
         escenarios=[
             ("Solicitud de restablecimiento", [
                 "Dado que olvidé mi contraseña",
@@ -157,7 +169,6 @@ HU = [
                 "Y me ofrece solicitar uno nuevo",
             ]),
         ],
-        nota="Historia sin requisito funcional asignado: es la brecha que la matriz de trazabilidad marca como cobertura **parcial** en RU-18.",
     ),
     Historia(
         id="HU-06",
@@ -166,7 +177,7 @@ HU = [
         rol="visitante",
         quiero="crear mi cuenta y entrar con mi identidad de Google o de Apple",
         para="empezar a usar la aplicación sin inventar otra contraseña",
-        ru=["RU-18"], rf=[], rn=[], rnf=["RNF-07"],
+        ru=["RU-18"], rf=["RF-55"], rn=[], rnf=["RNF-07"],
         escenarios=[
             ("Alta con proveedor externo", [
                 "Dado que no tengo cuenta en Deshka",
@@ -181,7 +192,6 @@ HU = [
                 "Y no crea una cuenta duplicada",
             ]),
         ],
-        nota="Historia sin requisito funcional asignado: es la segunda brecha declarada en RU-18.",
     ),
 
     # ---------------------------------------------------------------- 02

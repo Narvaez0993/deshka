@@ -2,7 +2,7 @@
 
 *El usuario aparta plata para algo concreto y ve si va a llegar.*
 
-**Tareas del story map:** «Crear la meta» · «Mover plata a la meta»
+**Tareas del story map:** «Crear la meta» · «Mover plata a la meta» · «Seguir y cerrar la meta»
 
 | Historia | Título | Release | RF |
 |---|---|---|---|
@@ -99,12 +99,12 @@ Característica: Ahorrar con propósito — Aportar y retirar dinero de mi meta
 
 | | |
 |---|---|
-| **Actividad** | 07 · Ahorrar con propósito — *Crear la meta* |
+| **Actividad** | 07 · Ahorrar con propósito — *Seguir y cerrar la meta* |
 | **Release** | Release 2 · Sin fricción — Captura asistida y control del gasto |
 | **Requisitos de usuario** | RU-12 |
 | **Requisitos funcionales** | RF-41 |
-| **Reglas de negocio** | RN-14, RN-23 |
-| **Requisitos no funcionales** | RNF-02 |
+| **Reglas de negocio** | RN-14 |
+| **Requisitos no funcionales** | RNF-02, RNF-23 |
 
 **Criterios de aceptación**
 
@@ -143,7 +143,7 @@ Característica: Ahorrar con propósito — Ver mi progreso y si voy a llegar a 
 
 | | |
 |---|---|
-| **Actividad** | 07 · Ahorrar con propósito — *Crear la meta* |
+| **Actividad** | 07 · Ahorrar con propósito — *Seguir y cerrar la meta* |
 | **Release** | Release 3 · Agente — El sistema trabaja por el usuario |
 | **Requisitos de usuario** | RU-12 |
 | **Requisitos funcionales** | RF-42 |

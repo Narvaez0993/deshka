@@ -1,15 +1,64 @@
-# 09 · Administrar mi plan
+# 09 · Administrar mi cuenta y mi plan
 
-*El usuario sabe qué consume, qué incluye su plan y cómo mejorarlo.*
+*El usuario ajusta su cuenta, sabe qué consume y decide qué hacer con sus datos.*
 
-**Tareas del story map:** «Ver mi consumo» · «Mejorar el plan»
+**Tareas del story map:** «Ajustar mi cuenta» · «Ver mi consumo» · «Mejorar el plan» · «Llevarme o borrar mis datos»
 
 | Historia | Título | Release | RF |
 |---|---|---|---|
-| `HU-51` | Ver cuánto llevo consumido de mi plan | Release 2 · Sin fricción | RF-49 |
+| `HU-04` | Ajustar mi perfil y mis preferencias | Release 2 · Sin fricción | RF-04 |
+| `HU-51` | Ver cuánto llevo consumido de mi plan | Release 2 · Sin fricción | RF-49, RF-58 |
 | `HU-52` | Seguir registrando cuando se me acaba la cuota | Release 2 · Sin fricción | RF-50 |
 | `HU-53` | Comprar el plan de pago | Release 3 · Agente | RF-51 |
 | `HU-54` | Exportar mis movimientos | Release 3 · Agente | RF-52 |
+| `HU-55` | Eliminar mi cuenta y mis datos | Release 3 · Agente | RF-56 |
+
+---
+
+### HU-04 · Ajustar mi perfil y mis preferencias
+
+> **Como** usuario,  
+> **quiero** cambiar mi nombre, mi objetivo, el idioma y el tema cuando quiera, y fijar mi moneda,  
+> **para** que la aplicación siga lo que hoy quiero lograr y me hable en mi idioma.
+
+| | |
+|---|---|
+| **Actividad** | 09 · Administrar mi cuenta y mi plan — *Ajustar mi cuenta* |
+| **Release** | Release 2 · Sin fricción — Captura asistida y control del gasto |
+| **Requisitos de usuario** | RU-16 |
+| **Requisitos funcionales** | RF-04 |
+| **Reglas de negocio** | RN-18 |
+| **Requisitos no funcionales** | RNF-14, RNF-15 |
+
+**Criterios de aceptación**
+
+```gherkin
+Característica: Administrar mi cuenta y mi plan — Ajustar mi perfil y mis preferencias
+
+  Escenario: Cambio del objetivo
+    Dado que en el onboarding declaré el objetivo «Controlar mis gastos»
+    Cuando lo cambio a «Ahorrar para algo» desde mi perfil
+    Entonces el sistema guarda el nuevo objetivo en mi cuenta
+    Y la pantalla de inicio pasa a mostrar primero el avance de mis metas
+
+  Escenario: Cambio de idioma
+    Dado que uso la aplicación en español
+    Cuando cambio el idioma a inglés
+    Entonces la totalidad de los textos de la interfaz pasa a inglés
+    Y ninguna pantalla conserva texto en español
+
+  Escenario: Cambio de moneda permitido
+    Dado que no tengo ningún movimiento registrado
+    Cuando cambio mi moneda de «COP» a «USD»
+    Entonces el sistema acepta el cambio
+    Y todos los montos se presentan con el símbolo y los decimales de «USD»
+
+  Escenario: Cambio de moneda rechazado
+    Dado que tengo al menos un movimiento registrado
+    Cuando intento cambiar mi moneda
+    Entonces el sistema rechaza el cambio
+    Y me explica que la moneda solo puede cambiarse mientras no existan movimientos
+```
 
 ---
 
@@ -21,17 +70,17 @@
 
 | | |
 |---|---|
-| **Actividad** | 09 · Administrar mi plan — *Ver mi consumo* |
+| **Actividad** | 09 · Administrar mi cuenta y mi plan — *Ver mi consumo* |
 | **Release** | Release 2 · Sin fricción — Captura asistida y control del gasto |
 | **Requisitos de usuario** | RU-19 |
-| **Requisitos funcionales** | RF-49 |
+| **Requisitos funcionales** | RF-49, RF-58 |
 | **Reglas de negocio** | RN-19, RN-20, RN-21 |
-| **Requisitos no funcionales** | RNF-22 |
+| **Requisitos no funcionales** | — |
 
 **Criterios de aceptación**
 
 ```gherkin
-Característica: Administrar mi plan — Ver cuánto llevo consumido de mi plan
+Característica: Administrar mi cuenta y mi plan — Ver cuánto llevo consumido de mi plan
 
   Escenario: Dos contadores independientes
     Dado que estoy en el plan gratuito
@@ -60,7 +109,7 @@ Característica: Administrar mi plan — Ver cuánto llevo consumido de mi plan
 
 | | |
 |---|---|
-| **Actividad** | 09 · Administrar mi plan — *Ver mi consumo* |
+| **Actividad** | 09 · Administrar mi cuenta y mi plan — *Ver mi consumo* |
 | **Release** | Release 2 · Sin fricción — Captura asistida y control del gasto |
 | **Requisitos de usuario** | RU-19, RU-01 |
 | **Requisitos funcionales** | RF-50 |
@@ -70,7 +119,7 @@ Característica: Administrar mi plan — Ver cuánto llevo consumido de mi plan
 **Criterios de aceptación**
 
 ```gherkin
-Característica: Administrar mi plan — Seguir registrando cuando se me acaba la cuota
+Característica: Administrar mi cuenta y mi plan — Seguir registrando cuando se me acaba la cuota
 
   Escenario: Degradación al formulario manual
     Dado que agoté mis sesenta registros asistidos del mes
@@ -99,7 +148,7 @@ Característica: Administrar mi plan — Seguir registrando cuando se me acaba l
 
 | | |
 |---|---|
-| **Actividad** | 09 · Administrar mi plan — *Mejorar el plan* |
+| **Actividad** | 09 · Administrar mi cuenta y mi plan — *Mejorar el plan* |
 | **Release** | Release 3 · Agente — El sistema trabaja por el usuario |
 | **Requisitos de usuario** | RU-19 |
 | **Requisitos funcionales** | RF-51 |
@@ -109,7 +158,7 @@ Característica: Administrar mi plan — Seguir registrando cuando se me acaba l
 **Criterios de aceptación**
 
 ```gherkin
-Característica: Administrar mi plan — Comprar el plan de pago
+Característica: Administrar mi cuenta y mi plan — Comprar el plan de pago
 
   Escenario: Compra confirmada
     Dado que estoy en el plan gratuito
@@ -139,7 +188,7 @@ Característica: Administrar mi plan — Comprar el plan de pago
 
 | | |
 |---|---|
-| **Actividad** | 09 · Administrar mi plan — *Mejorar el plan* |
+| **Actividad** | 09 · Administrar mi cuenta y mi plan — *Llevarme o borrar mis datos* |
 | **Release** | Release 3 · Agente — El sistema trabaja por el usuario |
 | **Requisitos de usuario** | RU-19, RU-15 |
 | **Requisitos funcionales** | RF-52 |
@@ -149,7 +198,7 @@ Característica: Administrar mi plan — Comprar el plan de pago
 **Criterios de aceptación**
 
 ```gherkin
-Característica: Administrar mi plan — Exportar mis movimientos
+Característica: Administrar mi cuenta y mi plan — Exportar mis movimientos
 
   Escenario: Exportación en el plan gratuito
     Dado que estoy en el plan gratuito y no he exportado este mes
@@ -171,6 +220,45 @@ Característica: Administrar mi plan — Exportar mis movimientos
     Dado que mi moneda es «COP»
     Cuando abro el archivo exportado
     Entonces los montos aparecen en la unidad menor de la moneda con su formato regional
+```
+
+---
+
+### HU-55 · Eliminar mi cuenta y mis datos
+
+> **Como** usuario,  
+> **quiero** eliminar mi cuenta y todos los datos asociados,  
+> **para** que nada mío quede guardado cuando deje de usar la aplicación.
+
+| | |
+|---|---|
+| **Actividad** | 09 · Administrar mi cuenta y mi plan — *Llevarme o borrar mis datos* |
+| **Release** | Release 3 · Agente — El sistema trabaja por el usuario |
+| **Requisitos de usuario** | RU-18 |
+| **Requisitos funcionales** | RF-56 |
+| **Reglas de negocio** | — |
+| **Requisitos no funcionales** | RNF-08, RNF-20 |
+
+**Criterios de aceptación**
+
+```gherkin
+Característica: Administrar mi cuenta y mi plan — Eliminar mi cuenta y mis datos
+
+  Escenario: Solicitud de eliminación
+    Dado que tengo una cuenta con movimientos, metas y deudas registrados
+    Cuando solicito eliminar mi cuenta y confirmo con mi contraseña
+    Entonces el sistema cierra mi sesión en todos los dispositivos
+    Y programa la eliminación de la cuenta y de todos sus datos
+
+  Escenario: Plazo de eliminación
+    Dado que solicité eliminar mi cuenta
+    Cuando pasan treinta días
+    Entonces ningún dato de mi cuenta permanece almacenado
+
+  Escenario: Exportar antes de eliminar
+    Dado que voy a eliminar mi cuenta
+    Cuando el sistema me pide confirmar
+    Entonces me ofrece exportar mis movimientos antes de continuar
 ```
 
 ---

@@ -2,13 +2,13 @@
 
 *El agente le explica al usuario qué pasó y qué hacer.*
 
-**Tareas del story map:** «Recibir avisos» · «Conversar y revisar»
+**Tareas del story map:** «Recibir avisos» · «Conversar con el agente» · «Recibir mis resúmenes» · «Aplicar lo que propone»
 
 | Historia | Título | Release | RF |
 |---|---|---|---|
 | `HU-45` | Recibir avisos calculados sobre mi plata | Release 2 · Sin fricción | RF-43 |
-| `HU-46` | Preguntarle al agente en mis palabras | Release 2 · Sin fricción | RF-44 |
-| `HU-47` | Recibir el corte de mi mes | Release 3 · Agente | RF-45 |
+| `HU-46` | Preguntarle al agente en mis palabras | Release 2 · Sin fricción | RF-44, RF-57 |
+| `HU-47` | Recibir el corte de mi mes | Release 1 · MVP | RF-45, RF-57 |
 | `HU-48` | Recibir mi revisión semanal | Release 3 · Agente | RF-46 |
 | `HU-49` | Aplicar una jugada que el agente me sugirió | Release 3 · Agente | RF-47 |
 | `HU-50` | Volver a leer lo que el agente ya me entregó | Release 3 · Agente | RF-48 |
@@ -62,12 +62,12 @@ Característica: Entender y decidir — Recibir avisos calculados sobre mi plata
 
 | | |
 |---|---|
-| **Actividad** | 08 · Entender y decidir — *Conversar y revisar* |
+| **Actividad** | 08 · Entender y decidir — *Conversar con el agente* |
 | **Release** | Release 2 · Sin fricción — Captura asistida y control del gasto |
 | **Requisitos de usuario** | RU-14 |
-| **Requisitos funcionales** | RF-44 |
-| **Reglas de negocio** | RN-03, RN-19, RN-23 |
-| **Requisitos no funcionales** | RNF-03, RNF-05 |
+| **Requisitos funcionales** | RF-44, RF-57 |
+| **Reglas de negocio** | RN-03, RN-19 |
+| **Requisitos no funcionales** | RNF-03, RNF-23 |
 
 **Criterios de aceptación**
 
@@ -112,12 +112,12 @@ Característica: Entender y decidir — Preguntarle al agente en mis palabras
 
 | | |
 |---|---|
-| **Actividad** | 08 · Entender y decidir — *Recibir avisos* |
-| **Release** | Release 3 · Agente — El sistema trabaja por el usuario |
+| **Actividad** | 08 · Entender y decidir — *Recibir mis resúmenes* |
+| **Release** | Release 1 · MVP — Registrar y entender lo básico |
 | **Requisitos de usuario** | RU-13 |
-| **Requisitos funcionales** | RF-45 |
-| **Reglas de negocio** | RN-21, RN-23, RN-24 |
-| **Requisitos no funcionales** | RNF-05, RNF-10, RNF-21 |
+| **Requisitos funcionales** | RF-45, RF-57 |
+| **Reglas de negocio** | RN-21, RN-24 |
+| **Requisitos no funcionales** | RNF-10, RNF-21, RNF-23 |
 
 **Criterios de aceptación**
 
@@ -162,12 +162,12 @@ Característica: Entender y decidir — Recibir el corte de mi mes
 
 | | |
 |---|---|
-| **Actividad** | 08 · Entender y decidir — *Conversar y revisar* |
+| **Actividad** | 08 · Entender y decidir — *Recibir mis resúmenes* |
 | **Release** | Release 3 · Agente — El sistema trabaja por el usuario |
 | **Requisitos de usuario** | RU-13 |
 | **Requisitos funcionales** | RF-46 |
-| **Reglas de negocio** | RN-21, RN-22, RN-23 |
-| **Requisitos no funcionales** | RNF-10, RNF-21 |
+| **Reglas de negocio** | RN-21, RN-22 |
+| **Requisitos no funcionales** | RNF-10, RNF-21, RNF-23 |
 
 **Criterios de aceptación**
 
@@ -181,7 +181,7 @@ Característica: Entender y decidir — Recibir mi revisión semanal
     Y hasta tres acciones sugeridas
 
   Escenario: Rendición de cuentas de la semana anterior
-    Dado que la semana pasada acepté la acción «tope de 200.000 en Restaurantes»
+    Dado que la semana pasada acepté la acción «tope de 200.000 en Comida fuera»
     Cuando recibo la revisión de esta semana
     Entonces incluye el resultado de esa acción
 
@@ -201,7 +201,7 @@ Característica: Entender y decidir — Recibir mi revisión semanal
 
 | | |
 |---|---|
-| **Actividad** | 08 · Entender y decidir — *Conversar y revisar* |
+| **Actividad** | 08 · Entender y decidir — *Aplicar lo que propone* |
 | **Release** | Release 3 · Agente — El sistema trabaja por el usuario |
 | **Requisitos de usuario** | RU-13 |
 | **Requisitos funcionales** | RF-47 |
@@ -214,7 +214,7 @@ Característica: Entender y decidir — Recibir mi revisión semanal
 Característica: Entender y decidir — Aplicar una jugada que el agente me sugirió
 
   Escenario: Acción que crea un tope
-    Dado que el agente sugiere un tope de 200.000 en «Restaurantes»
+    Dado que el agente sugiere un tope de 200.000 en «Comida fuera»
     Cuando la aplico
     Entonces el tope queda creado con ese monto
     Y la acción aparece como aplicada
@@ -247,7 +247,7 @@ Característica: Entender y decidir — Aplicar una jugada que el agente me sugi
 
 | | |
 |---|---|
-| **Actividad** | 08 · Entender y decidir — *Recibir avisos* |
+| **Actividad** | 08 · Entender y decidir — *Recibir mis resúmenes* |
 | **Release** | Release 3 · Agente — El sistema trabaja por el usuario |
 | **Requisitos de usuario** | RU-13 |
 | **Requisitos funcionales** | RF-48 |

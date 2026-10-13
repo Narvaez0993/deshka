@@ -41,7 +41,7 @@ Característica: Registrar lo que pasa — Registrar un gasto a mano
 
   Escenario: Registro de un gasto con cargo a una cuenta
     Dado que tengo la cuenta «Nómina» con saldo 800.000
-    Cuando registro un gasto de 45.000 con descripción «Mercado», categoría «Alimentación», fuente «Nómina» y la fecha de hoy
+    Cuando registro un gasto de 45.000 con descripción «Mercado», categoría «Mercado», fuente «Nómina» y la fecha de hoy
     Entonces el movimiento queda guardado
     Y el saldo de «Nómina» pasa a 755.000
     Y el gasto del mes aumenta en 45.000
@@ -203,8 +203,8 @@ Característica: Registrar lo que pasa — Usar y pagar la tarjeta sin que el ga
 | **Release** | Release 2 · Sin fricción — Captura asistida y control del gasto |
 | **Requisitos de usuario** | RU-01 |
 | **Requisitos funcionales** | RF-15 |
-| **Reglas de negocio** | RN-19, RN-23 |
-| **Requisitos no funcionales** | RNF-01, RNF-11 |
+| **Reglas de negocio** | RN-19 |
+| **Requisitos no funcionales** | RNF-01, RNF-11, RNF-23 |
 
 **Criterios de aceptación**
 
@@ -214,7 +214,7 @@ Característica: Registrar lo que pasa — Registrar un gasto hablando
   Escenario: Dictado interpretado
     Dado que tengo la cuenta «Nómina» y la tarjeta «Visa»
     Cuando dicto «gasté treinta mil en el almuerzo con la Visa»
-    Entonces el sistema propone un gasto de 30.000 con descripción «almuerzo», categoría «Alimentación», fuente «Visa» y la fecha de hoy
+    Entonces el sistema propone un gasto de 30.000 con descripción «almuerzo», categoría «Comida fuera», fuente «Visa» y la fecha de hoy
     Y me presenta la pantalla de confirmación en menos de cinco segundos
 
   Escenario: El dictado consume un registro asistido
@@ -243,8 +243,8 @@ Característica: Registrar lo que pasa — Registrar un gasto hablando
 | **Release** | Release 2 · Sin fricción — Captura asistida y control del gasto |
 | **Requisitos de usuario** | RU-01 |
 | **Requisitos funcionales** | RF-16 |
-| **Reglas de negocio** | RN-19, RN-23 |
-| **Requisitos no funcionales** | RNF-11 |
+| **Reglas de negocio** | RN-19 |
+| **Requisitos no funcionales** | RNF-11, RNF-23 |
 
 **Criterios de aceptación**
 
@@ -295,7 +295,7 @@ Característica: Registrar lo que pasa — Revisar y corregir lo que el sistema 
     Y nada queda guardado hasta que confirmo
 
   Escenario: Corrección de un campo interpretado
-    Dado que el sistema propuso la categoría «Alimentación»
+    Dado que el sistema propuso la categoría «Mercado»
     Cuando la cambio a «Entretenimiento» y confirmo
     Entonces el movimiento se guarda con la categoría que yo elegí
 
@@ -334,7 +334,7 @@ Característica: Registrar lo que pasa — Recibir una categoría sugerida para 
 
   Escenario: Sugerencia sobre una descripción conocida
     Cuando registro un movimiento con descripción «Éxito»
-    Entonces el sistema propone la categoría «Alimentación»
+    Entonces el sistema propone la categoría «Mercado»
     Y la propuesta queda editable
 
   Escenario: La clasificación no consume cuota
@@ -363,8 +363,8 @@ Característica: Registrar lo que pasa — Recibir una categoría sugerida para 
 | **Release** | Release 3 · Agente — El sistema trabaja por el usuario |
 | **Requisitos de usuario** | RU-01 |
 | **Requisitos funcionales** | RF-17 |
-| **Reglas de negocio** | RN-19, RN-23 |
-| **Requisitos no funcionales** | RNF-01, RNF-11 |
+| **Reglas de negocio** | RN-19 |
+| **Requisitos no funcionales** | RNF-01, RNF-11, RNF-23 |
 
 **Criterios de aceptación**
 
@@ -401,8 +401,8 @@ Característica: Registrar lo que pasa — Registrar un gasto con la foto del re
 | **Release** | Release 3 · Agente — El sistema trabaja por el usuario |
 | **Requisitos de usuario** | RU-17 |
 | **Requisitos funcionales** | RF-22 |
-| **Reglas de negocio** | — |
-| **Requisitos no funcionales** | RNF-16 |
+| **Reglas de negocio** | RN-30 |
+| **Requisitos no funcionales** | RNF-16, RNF-24 |
 
 **Criterios de aceptación**
 
@@ -427,6 +427,6 @@ Característica: Registrar lo que pasa — Registrar aunque no tenga conexión
     Entonces el gasto ya está descontado
 ```
 
-> **Nota.** La resolución de conflictos entre una edición local y una remota sobre el mismo movimiento aún no tiene regla de negocio definida: es la brecha que la matriz marca como cobertura **parcial** en RU-17.
+> **Nota.** RNF-24 fija cuándo y cómo se sincroniza lo registrado sin conexión, y RN-30 resuelve el conflicto entre una edición local y una remota del mismo movimiento: prevalece la última edición confirmada por el usuario y la otra queda en su historial.
 
 ---

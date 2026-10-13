@@ -274,11 +274,11 @@ HU = [
     Historia(
         id="HU-43",
         titulo="Ver mi progreso y si voy a llegar a tiempo",
-        actividad="07", tarea="Crear la meta", release="R2",
+        actividad="07", tarea="Seguir y cerrar la meta", release="R2",
         rol="usuario",
         quiero="ver cuánto llevo ahorrado y una estimación de cuándo cumpliré la meta",
         para="saber si mi ritmo alcanza o si tengo que aportar más",
-        ru=["RU-12"], rf=["RF-41"], rn=["RN-14", "RN-23"], rnf=["RNF-02"],
+        ru=["RU-12"], rf=["RF-41"], rn=["RN-14"], rnf=["RNF-02", "RNF-23"],
         escenarios=[
             ("Lo ahorrado se deriva de los movimientos", [
                 "Dado que aporté 300.000 y retiré 100.000 de la meta «Viaje»",
@@ -306,7 +306,7 @@ HU = [
     Historia(
         id="HU-44",
         titulo="Cerrar y archivar una meta",
-        actividad="07", tarea="Crear la meta", release="R3",
+        actividad="07", tarea="Seguir y cerrar la meta", release="R3",
         rol="usuario",
         quiero="archivar o eliminar una meta cuando ya no la necesito",
         para="mantener mi lista limpia sin perder lo que ya logré",
