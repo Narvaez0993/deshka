@@ -92,5 +92,4 @@ Cierra el ciclo del numeral 1.5 del Entregable #1, con los requisitos refinados 
 
 ## Historias sin requisito funcional
 
-Aparecen en el story map porque el usuario las espera, pero todavía no tienen un RF escrito: son las brechas que la matriz del numeral 1.5 marca como cobertura parcial.
 Ninguna: desde el Entregable 2 todas las historias tienen al menos un requisito funcional (RF-54 y RF-55 cerraron las dos brechas que quedaban).

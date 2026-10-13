@@ -157,7 +157,7 @@ def trazabilidad():
     for h in huerfanas:
         p.append(f"| `{h.id}` | {h.titulo} | {', '.join(h.ru)} |")
     if not huerfanas:
-        p[-3:] = ["Ninguna: desde el Entregable 2 todas las historias tienen al menos un requisito "
+        p[-4:] = ["Ninguna: desde el Entregable 2 todas las historias tienen al menos un requisito "
                   "funcional (RF-54 y RF-55 cerraron las dos brechas que quedaban)."]
     return escribir("docs/trazabilidad.md", "\n".join(p))
 
