@@ -123,7 +123,7 @@ HU = [
                 "Y hasta tres acciones sugeridas",
             ]),
             ("Rendición de cuentas de la semana anterior", [
-                "Dado que la semana pasada acepté la acción «tope de 200.000 en Restaurantes»",
+                "Dado que la semana pasada acepté la acción «tope de 200.000 en Comida fuera»",
                 "Cuando recibo la revisión de esta semana",
                 "Entonces incluye el resultado de esa acción",
             ]),
@@ -144,7 +144,7 @@ HU = [
         ru=["RU-13"], rf=["RF-47"], rn=["RN-22"], rnf=["RNF-12"],
         escenarios=[
             ("Acción que crea un tope", [
-                "Dado que el agente sugiere un tope de 200.000 en «Restaurantes»",
+                "Dado que el agente sugiere un tope de 200.000 en «Comida fuera»",
                 "Cuando la aplico",
                 "Entonces el tope queda creado con ese monto",
                 "Y la acción aparece como aplicada",

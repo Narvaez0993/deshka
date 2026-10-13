@@ -181,7 +181,7 @@ Característica: Entender y decidir — Recibir mi revisión semanal
     Y hasta tres acciones sugeridas
 
   Escenario: Rendición de cuentas de la semana anterior
-    Dado que la semana pasada acepté la acción «tope de 200.000 en Restaurantes»
+    Dado que la semana pasada acepté la acción «tope de 200.000 en Comida fuera»
     Cuando recibo la revisión de esta semana
     Entonces incluye el resultado de esa acción
 
@@ -214,7 +214,7 @@ Característica: Entender y decidir — Recibir mi revisión semanal
 Característica: Entender y decidir — Aplicar una jugada que el agente me sugirió
 
   Escenario: Acción que crea un tope
-    Dado que el agente sugiere un tope de 200.000 en «Restaurantes»
+    Dado que el agente sugiere un tope de 200.000 en «Comida fuera»
     Cuando la aplico
     Entonces el tope queda creado con ese monto
     Y la acción aparece como aplicada

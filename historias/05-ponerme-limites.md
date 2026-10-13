@@ -121,13 +121,13 @@ Característica: Ponerme límites — Ponerme topes por categoría
 
   Escenario: Definición de un tope por categoría
     Dado que tengo un techo global de 2.500.000
-    Cuando fijo un tope de 400.000 para «Alimentación»
-    Entonces veo el consumo de «Alimentación» contra sus 400.000
+    Cuando fijo un tope de 400.000 para «Mercado»
+    Entonces veo el consumo de «Mercado» contra sus 400.000
 
   Escenario: Los topes por categoría no son acumulables
     Dado que tengo un techo global de 2.500.000 y topes de 400.000 y 300.000 en dos categorías
-    Cuando registro un gasto de 100.000 en «Alimentación»
-    Entonces el consumo de «Alimentación» aumenta en 100.000
+    Cuando registro un gasto de 100.000 en «Mercado»
+    Entonces el consumo de «Mercado» aumenta en 100.000
     Y el consumo del techo global también aumenta en 100.000
 
   Escenario: Tope del plan gratuito
@@ -160,18 +160,18 @@ Característica: Ponerme límites — Ponerme topes por categoría
 Característica: Ponerme límites — Que me avisen al ochenta por ciento y al pasarme
 
   Escenario: Aviso al ochenta por ciento
-    Dado que tengo un tope de 400.000 en «Alimentación» y llevo 300.000
+    Dado que tengo un tope de 400.000 en «Mercado» y llevo 300.000
     Cuando registro un gasto de 25.000 en esa categoría
     Entonces el sistema me avisa que consumí el ochenta por ciento del tope
 
   Escenario: Aviso al superar el tope
-    Dado que tengo un tope de 400.000 en «Alimentación» y llevo 390.000
+    Dado que tengo un tope de 400.000 en «Mercado» y llevo 390.000
     Cuando registro un gasto de 30.000 en esa categoría
     Entonces el sistema me avisa que superé el tope
     Y me informa un exceso de 20.000
 
   Escenario: El aviso no se repite por cada gasto
-    Dado que ya recibí el aviso del ochenta por ciento de «Alimentación» este mes
+    Dado que ya recibí el aviso del ochenta por ciento de «Mercado» este mes
     Cuando registro otro gasto en esa categoría sin superar el tope
     Entonces el sistema no vuelve a emitir el mismo aviso
 ```
@@ -234,7 +234,7 @@ Característica: Ponerme límites — Ver cómo voy a cerrar el mes
 Característica: Ponerme límites — Ver en qué comercios se me fue la plata
 
   Escenario: Los tres comercios de mayor gasto
-    Dado que tengo un tope en «Alimentación» con gastos en varios comercios
+    Dado que tengo un tope en «Mercado» con gastos en varios comercios
     Cuando abro el detalle de esa categoría
     Entonces veo los tres comercios de mayor gasto del periodo con su monto
 
