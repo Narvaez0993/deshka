@@ -79,7 +79,7 @@ HU = [
         ru=["RU-13"], rf=["RF-45", "RF-57"], rn=["RN-21", "RN-24"], rnf=["RNF-10", "RNF-21", "RNF-23"],
         escenarios=[
             ("Composición del cierre mensual", [
-                "Dado que el mes anterior registré más de tres movimientos",
+                "Dado que el mes anterior registré tres o más movimientos (RN-24)",
                 "Cuando comienza el mes nuevo",
                 "Entonces el sistema compone un resumen del mes anterior en secuencia de pantallas",
                 "Y omite las pantallas que no tengan datos",

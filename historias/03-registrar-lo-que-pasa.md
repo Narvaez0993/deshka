@@ -177,10 +177,11 @@ Característica: Registrar lo que pasa — Usar y pagar la tarjeta sin que el ga
 
   Escenario: Compra a cuotas
     Dado que mi tarjeta tiene una deuda de 0
-    Cuando registro una compra de 1.200.000 a doce cuotas
+    Cuando registro una compra de 1.200.000 que pagaré en doce cuotas
     Entonces la deuda de la tarjeta aumenta en 1.200.000 en el momento de la compra
     Y el gasto del mes aumenta en 1.200.000
     Y cada cuota que pague después se registra como transferencia y no como gasto nuevo
+    Y el número de cuotas no se pide, porque no cambia ninguna cifra (RN-02)
 
   Escenario: La operación es atómica
     Dado que registro un consumo con tarjeta
