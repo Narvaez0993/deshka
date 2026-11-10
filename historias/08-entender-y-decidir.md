@@ -125,7 +125,7 @@ Característica: Entender y decidir — Preguntarle al agente en mis palabras
 Característica: Entender y decidir — Recibir el corte de mi mes
 
   Escenario: Composición del cierre mensual
-    Dado que el mes anterior registré más de tres movimientos
+    Dado que el mes anterior registré tres o más movimientos (RN-24)
     Cuando comienza el mes nuevo
     Entonces el sistema compone un resumen del mes anterior en secuencia de pantallas
     Y omite las pantallas que no tengan datos
